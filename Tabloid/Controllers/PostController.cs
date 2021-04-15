@@ -26,7 +26,7 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult Post(Post post)
         { return null; }
-        
+
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         { return null; }
@@ -34,4 +34,8 @@ namespace Tabloid.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         { return null; }
+
+        //[HttpGet("/myfeed/{id}")]
+
+    }
 }
