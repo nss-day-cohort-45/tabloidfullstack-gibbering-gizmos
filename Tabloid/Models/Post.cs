@@ -24,6 +24,9 @@ namespace Tabloid.Models
         public DateTime? PublishDateTime { get; set; }
 
         public bool IsApproved { get; set; }
+        public int CategoryId { get; internal set; }
+        public Category Category { get; internal set; }
+        public int UserProfileId { get; internal set; }
 
         //[Required]
         //[DisplayName("Category")]
