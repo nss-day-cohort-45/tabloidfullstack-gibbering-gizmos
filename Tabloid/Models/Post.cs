@@ -27,14 +27,6 @@ namespace Tabloid.Models
         public int CategoryId { get; internal set; }
         public Category Category { get; internal set; }
         public int UserProfileId { get; internal set; }
-
-        //[Required]
-        //[DisplayName("Category")]
-        //public int CategoryId { get; set; }
-        //public Category Category { get; set; }
-
-        //[DisplayName("Author")]
-        //public int UserProfileId { get; set; }
-        //public UserProfile UserProfile { get; set; }
+        public UserProfile UserProfile { get; internal set; }
     }
 }

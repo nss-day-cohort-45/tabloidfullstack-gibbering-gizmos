@@ -17,7 +17,9 @@ namespace Tabloid.Controllers
 
         [HttpGet]
         public IActionResult Get()
-        { return null; }
+        {
+            return Ok(_postRepository.GetAllPosts()); 
+        }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
