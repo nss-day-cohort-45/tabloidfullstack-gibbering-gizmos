@@ -12,14 +12,46 @@ namespace Tabloid.Repositories
     public class PostRepository : BaseRepository, IPostRepository
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
-        public List<Post> GetAllPosts()
-        { return null; }
         /// <summary>
-        ///  Add summary?
+        /// This method returns all posts, regardless of author. It includes category, user profile, and user type information on each object.
         /// </summary>
-        /// <param name="userProfileId">An integer that represents the UserProfileId of a post.</param>
-        /// <returns></returns>
-        public List<Post> GetCurrentUserPosts(int userProfileId)
+        public List<Post> GetAllPosts()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT p.Id, p.Title, p.Content, 
+                              p.ImageLocation AS HeaderImage,
+                              p.CreateDateTime, p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId, c.[Name] AS CategoryName, u.FirstName, u.LastName, u.DisplayName, u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage, u.UserTypeId, ut.[Name] AS UserTypeName
+                        FROM Post p
+                            LEFT JOIN Category c ON p.CategoryId = c.Id
+                            LEFT JOIN UserProfile u ON p.UserProfileId = u.Id
+                            LEFT JOIN UserType ut ON u.UserTypeId = ut.Id
+                        WHERE IsApproved = 'true' AND PublishDateTime < SYSDATETIME()";
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(NewPostFromReader(reader));
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
+    /// <summary>
+    ///  Add summary?
+    /// </summary>
+    /// <param name="userProfileId">An integer that represents the UserProfileId of a post.</param>
+    /// <returns></returns>
+    public List<Post> GetCurrentUserPosts(int userProfileId)
         {
             using (var conn = Connection)
             {
