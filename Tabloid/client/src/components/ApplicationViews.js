@@ -4,7 +4,7 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import UserPosts from './UserPosts'
+import UserPosts from './UserPosts';
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -24,7 +24,7 @@ export default function ApplicationViews() {
           <Register />
         </Route>
 
-        <Route path="/myfeed/:id">
+        <Route path={`/myfeed/:id`}>
           <UserPosts/>
         </Route>
       </Switch>

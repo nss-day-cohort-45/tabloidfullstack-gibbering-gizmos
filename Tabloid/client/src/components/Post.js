@@ -13,7 +13,7 @@ const Post = ({post}) => {
               </Link>
           </p>
           <CardBody>
-            <p>Author: {post.userProfile.name}</p>
+            <p>Author: {post.userProfile.displayName}</p>
             <p>Category: {post.category.name}</p>
           </CardBody>
         </Card>

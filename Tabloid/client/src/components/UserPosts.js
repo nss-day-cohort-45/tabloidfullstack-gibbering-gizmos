@@ -19,7 +19,7 @@ const UserPosts = () => {
             <div className="col-sm-12 col-lg-6">
               {
                   userPosts ? 
-                  userPosts.posts.map(post => {
+                  userPosts.map(post => {
                     return <Post key={post.id} post={post} />
                   })
                   : null
