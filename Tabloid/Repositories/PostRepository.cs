@@ -173,7 +173,6 @@ namespace Tabloid.Repositories
                 }
             }
         }
-        { }
         
         /// <summary>
         /// Deletes a Post and any PostTags/PostReactions/Comments that has the same PostId from the Database
