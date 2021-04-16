@@ -12,6 +12,7 @@ namespace Tabloid.Repositories
     public class PostRepository : BaseRepository, IPostRepository
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
+        
         /// <summary>
         /// This method returns all posts, regardless of author. It includes category, user profile, and user type information on each object.
         /// </summary>
@@ -46,6 +47,7 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
     /// <summary>
     ///  Add summary?
     /// </summary>
@@ -171,8 +173,61 @@ namespace Tabloid.Repositories
                 }
             }
         }
-        public void DeletePost(int id)
         { }
+        
+        /// <summary>
+        /// Deletes a Post and any PostTags/PostReactions/Comments that has the same PostId from the Database
+        /// </summary>
+        /// <param name="id">The Id of the post to be Deleted.</param>
+        /// <returns></returns>
+        public void DeletePost(int id)
+        { 
+            using (var conn = Connection)
+            {
+                conn.Open();
+                
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE  FROM PostTag
+                        WHERE   PostId = @id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE  FROM PostReaction
+                        WHERE   PostId = @id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE  FROM Comment
+                        WHERE   PostId = @id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE  FROM Post
+                        WHERE   Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         private Post NewPostFromReader(SqlDataReader reader)
         {
