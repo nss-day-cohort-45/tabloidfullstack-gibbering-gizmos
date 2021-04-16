@@ -25,7 +25,7 @@ export default function ApplicationViews() {
           <Register />
         </Route>
 
-        <Route path="/posts/add">
+        <Route path="/post/create">
           <PostForm />
         </Route>
 
