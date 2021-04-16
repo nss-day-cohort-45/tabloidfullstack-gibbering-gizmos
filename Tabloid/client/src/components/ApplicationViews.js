@@ -26,7 +26,7 @@ export default function ApplicationViews() {
           <Register />
         </Route>
 
-        <Route path="/posts">
+        <Route path="/posts" exact>
           <PostList />
         </Route>
 
