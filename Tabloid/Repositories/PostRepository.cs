@@ -136,6 +136,11 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        /// <summary>
+        /// Adds a post to the database.
+        /// </summary>
+        /// <param name="post"></param>
         public void AddPost(Post post)
         { 
             using (var conn = Connection)
