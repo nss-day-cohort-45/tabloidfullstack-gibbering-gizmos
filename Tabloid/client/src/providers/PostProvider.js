@@ -8,6 +8,12 @@ export const PostProvider = (props) => {
     const [posts, setPosts] = useState([]);
     const { getToken } = useContext(UserProfileContext);
 
+    const getAllPosts = () => {
+      return fetch("/api/post")
+        .then((res) => res.json())
+        .then(setPosts);
+    }
+
     const getUserPosts = (id) => {
         return getToken().then((token) =>
         fetch(`${apiUrl}/GetAllPostsByUserId?id=${id}`, {
