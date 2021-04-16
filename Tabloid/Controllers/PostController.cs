@@ -35,6 +35,14 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         { return null; }
+       
+        [HttpGet("GetAllPostsByUserId")]
+        public IActionResult GetAllPostsByUserId(int id)
+        {
+            var posts = _postRepository.GetCurrentUserPosts(id);
+            return Ok(posts);
+
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
