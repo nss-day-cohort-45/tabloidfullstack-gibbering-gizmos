@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import UserPosts from './UserPosts';
+import PostList from './PostList';
 import PostDetails from "./PostDetails";
 
 export default function ApplicationViews() {
@@ -23,6 +24,10 @@ export default function ApplicationViews() {
 
         <Route path="/register">
           <Register />
+        </Route>
+
+        <Route path="/posts" exact>
+          <PostList />
         </Route>
 
         <Route path={`/myfeed/:id`}>
