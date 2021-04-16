@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Tabloid.Models;
 using Tabloid.Utils;
 
+
 namespace Tabloid.Repositories
 {
     public class PostRepository : BaseRepository, IPostRepository
@@ -33,15 +34,11 @@ namespace Tabloid.Repositories
                                 p.ImageLocation AS HeaderImage,
                                 p.CreateDateTime, p.PublishDateTime, p.IsApproved,
                                 p.CategoryId, p.UserProfileId,
-
                                 c.[Name] AS CategoryName,
-
                                 u.FirstName, u.LastName, u.DisplayName, 
                                 u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
                                 u.UserTypeId, 
-
                                 ut.[Name] AS UserTypeName
-
                             FROM Post p
                                 LEFT JOIN Category c ON p.CategoryId = c.id
                                 LEFT JOIN UserProfile u ON p.UserProfileId = u.id
@@ -65,9 +62,49 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        /// <summary>
+        ///  Fetch a post by Id. Uses NewPostFromReader method to create new Post "object"
+        /// </summary>
         public Post GetPostById(int id)
         {
-            return null;
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT p.Id, p.Title, p.Content, 
+                              p.ImageLocation AS HeaderImage,
+                              p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+                              p.CategoryId, p.UserProfileId,
+                              c.[Name] AS CategoryName,
+                              u.FirstName, u.LastName, u.DisplayName, 
+                              u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
+                              u.UserTypeId, 
+                              ut.[Name] AS UserTypeName
+                         FROM Post p
+                              LEFT JOIN Category c ON p.CategoryId = c.id
+                              LEFT JOIN UserProfile u ON p.UserProfileId = u.id
+                              LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                        WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME()
+                              AND p.id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+                    var reader = cmd.ExecuteReader();
+
+                    Post post = null;
+
+                    if (reader.Read())
+                    {
+                        post = NewPostFromReader(reader);
+                    }
+
+                    reader.Close();
+
+                    return post;
+                }
+            }
         }
         public void AddPost(Post post)
         { 
@@ -137,6 +174,5 @@ namespace Tabloid.Repositories
                 }
             };
         }
-
     }
 }
