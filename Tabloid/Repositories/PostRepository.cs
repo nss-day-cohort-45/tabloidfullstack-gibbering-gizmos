@@ -146,6 +146,7 @@ namespace Tabloid.Repositories
         /// Deletes a Post and any PostTags/PostReactions/Comments that has the same PostId from the Database
         /// </summary>
         /// <param name="id">The Id of the post to be Deleted.</param>
+        /// <returns></returns>
         public void DeletePost(int id)
         { 
             using (var conn = Connection)
