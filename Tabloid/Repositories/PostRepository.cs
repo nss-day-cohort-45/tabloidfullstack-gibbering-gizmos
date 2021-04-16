@@ -17,6 +17,9 @@ namespace Tabloid.Repositories
         public List<Post> GetCurrentUserPosts(int userProfileId)
         { return new List<Post>(); }
 
+        /// <summary>
+        ///  Fetch a post by Id. Uses NewPostFromReader method to create new Post "object"
+        /// </summary>
         public Post GetPostById(int id)
         {
             using (var conn = Connection)
