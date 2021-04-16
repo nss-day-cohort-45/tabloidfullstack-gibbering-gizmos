@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -12,9 +12,19 @@ import {
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Header() {
+  
   const { isLoggedIn, logout } = useContext(UserProfileContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+
+  if(isLoggedIn === true)
+  {
+    // This is returning JSON
+    const userProfile = sessionStorage.getItem("userProfile");
+    // Parsing the JSON returned above into an object so we can use it
+    var currentUser = JSON.parse(userProfile)
+  }  
 
   return (
     <div>
@@ -25,9 +35,14 @@ export default function Header() {
           <Nav className="mr-auto" navbar>
             { /* When isLoggedIn === true, we will render the Home link */ }
             {isLoggedIn &&
-              <NavItem>
-                <NavLink tag={RRNavLink} to="/">Home</NavLink>
-              </NavItem>
+              <>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/">Home</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to={`/myfeed/${currentUser.id}`}>My Feed</NavLink>
+                </NavItem>
+              </>
             }
           </Nav>
           <Nav navbar>
