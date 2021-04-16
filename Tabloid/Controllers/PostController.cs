@@ -40,6 +40,7 @@ namespace Tabloid.Controllers
         {
             var posts = _postRepository.GetCurrentUserPosts(id);
             return Ok(posts);
+
         }
     }
 }
