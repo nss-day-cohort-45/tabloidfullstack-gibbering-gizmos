@@ -6,8 +6,6 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Tabloid.Models;
 using Tabloid.Utils;
-using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
 
 namespace Tabloid.Repositories
 {
@@ -18,16 +16,12 @@ namespace Tabloid.Repositories
         {
             return null;
         }
-        { return null; }
         /// <summary>
         ///  Add summary?
         /// </summary>
         /// <param name="userProfileId">An integer that represents the UserProfileId of a post.</param>
         /// <returns></returns>
         public List<Post> GetCurrentUserPosts(int userProfileId)
-        {
-            return null;
-        }
         {
             using (var conn = Connection)
             {
@@ -75,7 +69,6 @@ namespace Tabloid.Repositories
         {
             return null;
         }
-        { return null; }
         public void AddPost(Post post)
         { 
             using (var conn = Connection)
