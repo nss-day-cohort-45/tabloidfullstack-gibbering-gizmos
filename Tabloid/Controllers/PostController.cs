@@ -37,5 +37,13 @@ namespace Tabloid.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         { return null; }
+
+        [HttpGet("GetAllPostsByUserId")]
+        public IActionResult GetAllPostsByUserId(int id)
+        {
+            var posts = _postRepository.GetCurrentUserPosts(id);
+            return Ok(posts);
+
+        }
     }
 }
