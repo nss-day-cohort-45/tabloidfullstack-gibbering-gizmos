@@ -95,8 +95,10 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
         public void UpdatePost(Post post)
         { }
+
         public void DeletePost(int id)
         { }
 
