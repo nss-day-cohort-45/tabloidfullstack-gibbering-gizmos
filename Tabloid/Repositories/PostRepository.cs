@@ -13,9 +13,9 @@ namespace Tabloid.Repositories
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
         public List<Post> GetAllPosts()
-        { }
+        { return new List<Post>(); }
         public List<Post> GetCurrentUserPosts(int userProfileId)
-        { }
+        { return new List<Post>(); }
         public Post GetPostById(int id)
         {
             using (var conn = Connection)
