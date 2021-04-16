@@ -40,6 +40,9 @@ export default function Header() {
                   <NavLink tag={RRNavLink} to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
+                  <NavLink tag={RRNavLink} to={`/posts`}>Posts</NavLink>
+                </NavItem>
+                <NavItem>
                   <NavLink tag={RRNavLink} to={`/myfeed/${currentUser.id}`}>My Feed</NavLink>
                 </NavItem>
               </>
