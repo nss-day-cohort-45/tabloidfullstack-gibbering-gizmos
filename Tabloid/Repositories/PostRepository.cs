@@ -11,6 +11,11 @@ namespace Tabloid.Repositories
         public PostRepository(IConfiguration configuration) : base(configuration) { }
         public List<Post> GetAllPosts()
         { return null; }
+        /// <summary>
+        ///  Add summary?
+        /// </summary>
+        /// <param name="userProfileId">An integer that represents the UserProfileId of a post.</param>
+        /// <returns></returns>
         public List<Post> GetCurrentUserPosts(int userProfileId)
         {
             using (var conn = Connection)
