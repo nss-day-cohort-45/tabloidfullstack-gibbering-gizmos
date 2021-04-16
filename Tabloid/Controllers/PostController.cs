@@ -23,7 +23,12 @@ namespace Tabloid.Controllers
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
-        { return null; }
+        {
+            var post = _postRepository.GetPostById(id);
+
+
+            return Ok(post);
+        }
 
         [HttpPost]
         public IActionResult Post(Post post)
@@ -32,11 +37,7 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         { return null; }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        { return null; }
-
+       
         [HttpGet("GetAllPostsByUserId")]
         public IActionResult GetAllPostsByUserId(int id)
         {
@@ -44,5 +45,10 @@ namespace Tabloid.Controllers
             return Ok(posts);
 
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        { return null; }
+
     }
 }
