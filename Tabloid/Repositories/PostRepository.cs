@@ -9,6 +9,9 @@ namespace Tabloid.Repositories
     public class PostRepository : BaseRepository, IPostRepository
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
+        /// <summary>
+        /// This method returns all posts, regardless of author. It includes category, user profile, and user type information on each object.
+        /// </summary>
         public List<Post> GetAllPosts()
         {
             using (var conn = Connection)
