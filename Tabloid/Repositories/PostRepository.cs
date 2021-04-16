@@ -138,7 +138,39 @@ namespace Tabloid.Repositories
         public void AddPost(Post post)
         { }
         public void UpdatePost(Post post)
-        { }
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE Post
+                        SET Title = @Title,
+                            Content = @Content,
+                            ImageLocation = @ImageLocation,
+                            CreateDateTime = @CreateDateTime,
+                            PublishDateTime = @PublishDateTime,
+                            isApproved = @isApproved,
+                            CategoryId = @CategoryId,
+                            UserProfileId = @UserProfileId
+                    WHERE id = @id
+                    ";
+
+                    cmd.Parameters.AddWithValue("@Title", post.Title);
+                    cmd.Parameters.AddWithValue("@Content", post.Content);
+                    cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation);
+                    cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime);
+                    cmd.Parameters.AddWithValue("@isApproved", post.IsApproved);
+                    cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
+                    cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
+                    cmd.Parameters.AddWithValue("@id", post.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public void DeletePost(int id)
         { }
 
