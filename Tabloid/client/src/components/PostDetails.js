@@ -36,7 +36,7 @@ const PostDetails = () => {
                 <div>{post.imageLocation}</div>
             <CardBody>
                 <p>Publication Date: {post.publishDateTime}</p>
-                {/* <p>Author: {PostDetails.userProfile.displayName}</p> */}
+                <p>Author: {post.userProfile.displayName}</p>
                 <p>Content: {post.content}</p>
             </CardBody>
         </Card>
