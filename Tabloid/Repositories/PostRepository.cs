@@ -66,8 +66,59 @@ namespace Tabloid.Repositories
         { }
         public void UpdatePost(Post post)
         { }
+        
+        /// <summary>
+        /// Deletes a Post and any PostTags/PostReactions/Comments that has the same PostId from the Database
+        /// </summary>
+        /// <param name="id">The Id of the post to be Deleted.</param>
         public void DeletePost(int id)
-        { }
+        { 
+            using (var conn = Connection)
+            {
+                conn.Open();
+                
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE  FROM PostTag
+                        WHERE   PostId = @id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE  FROM PostReaction
+                        WHERE   PostId = @id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE  FROM Comment
+                        WHERE   PostId = @id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE  FROM Post
+                        WHERE   Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         private Post NewPostFromReader(SqlDataReader reader)
         {
