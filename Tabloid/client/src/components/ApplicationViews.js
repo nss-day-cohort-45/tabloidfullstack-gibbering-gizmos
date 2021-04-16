@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import UserPosts from './UserPosts';
+import PostDetails from "./PostDetails";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -26,6 +27,10 @@ export default function ApplicationViews() {
 
         <Route path={`/myfeed/:id`}>
           <UserPosts/>
+        </Route>
+
+        <Route path={`/posts/:id`}>
+          <PostDetails/>
         </Route>
       </Switch>
     </main>
