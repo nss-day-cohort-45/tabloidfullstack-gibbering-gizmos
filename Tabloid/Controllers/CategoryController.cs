@@ -21,11 +21,21 @@ namespace Tabloid.Controllers
             return Ok(_categoryRepository.GetAllCategories());
         }
 
+<<<<<<< HEAD
         [HttpPut("{id}")]
         public IActionResult Put(int id, Category category)
         {
             _categoryRepository.UpdateCategory(category);
             return NoContent();
         }
+=======
+        [HttpPost]
+        public IActionResult Category(Category category)
+        {
+            _categoryRepository.AddCategory(category);
+            return NoContent(); 
+        }
+
+>>>>>>> main
     }
 }

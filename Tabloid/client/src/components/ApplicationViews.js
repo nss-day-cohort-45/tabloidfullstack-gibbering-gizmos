@@ -9,6 +9,7 @@ import PostList from './posts/PostList';
 import PostDetails from "./posts/PostDetails";
 import PostEdit from "./posts/PostEdit";
 import CategoryList from "./CategoryList";
+import CategoryForm from "./CategoryForm";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -46,6 +47,10 @@ export default function ApplicationViews() {
 
         <Route path="/categories" exact>
           <CategoryList />
+        </Route>
+
+        <Route path={`/categories/add`}>
+          <CategoryForm />
         </Route>
         
       </Switch>
