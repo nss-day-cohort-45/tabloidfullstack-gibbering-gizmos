@@ -12,16 +12,14 @@ export const CategoryProvider = (props) => {
       .then(setCategories);
   }
   const addCategory = (category) => {
-    return getToken().then((token) =>
-    fetch(`${apiUrl}/${category}`, {
+    return fetch(apiUrl , {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify(category)
-    }))
-}
+        body: JSON.stringify(category),
+    });
+};
 
   return (
     <CategoryContext.Provider value={{categories, setCategories, getAllCategories, addCategory}}>

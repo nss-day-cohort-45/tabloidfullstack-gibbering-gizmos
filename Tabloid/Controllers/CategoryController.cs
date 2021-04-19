@@ -24,7 +24,8 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult Category(Category category)
         {
-            return null; 
+            _categoryRepository.AddCategory(category);
+            return NoContent(); 
         }
 
     }
