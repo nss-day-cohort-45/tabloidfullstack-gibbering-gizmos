@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Button } from "reactstrap";
-import { CategoryContext } from '../providers/CategoryProvider';
+import { CategoryContext } from '../../providers/CategoryProvider';
 import { useHistory, useParams } from "react-router-dom";
 
 const CategoryDelete = () => {

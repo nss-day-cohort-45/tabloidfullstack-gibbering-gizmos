@@ -6,6 +6,10 @@ const Category = ({category}) => {
 
   const history = useHistory();
 
+  const edit = () => {
+    history.push(`/categories/edit/${category.id}`)
+  }
+
   const deleteIt = () => {
     history.push(`/categories/delete/${category.id}`)
   }
@@ -16,7 +20,7 @@ const Category = ({category}) => {
         <p>{category.name}</p>
       </CardBody>
       <CardFooter>
-        <Button>Edit</Button>
+        <Button color="info" onClick={edit}>Edit</Button>
         <Button color="danger" onClick={deleteIt}>Delete</Button>
       </CardFooter>
     </Card>
