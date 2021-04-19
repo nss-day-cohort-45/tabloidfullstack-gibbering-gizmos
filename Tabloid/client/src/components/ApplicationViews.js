@@ -6,7 +6,7 @@ import Register from "./Register";
 import Hello from "./Hello";
 import UserPosts from './UserPosts';
 import PostList from './PostList';
-import PostDetails from "./PostDetails";
+import PostDetails from "./posts/PostDetails";
 import PostEdit from "./PostEdit"
 
 export default function ApplicationViews() {
