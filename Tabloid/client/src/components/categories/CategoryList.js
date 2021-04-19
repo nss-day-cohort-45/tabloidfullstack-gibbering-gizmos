@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { CategoryContext } from "../providers/CategoryProvider";
+import { CategoryContext } from "../../providers/CategoryProvider";
 import Category from "./Category";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import CategoryForm from "./CategoryForm";
