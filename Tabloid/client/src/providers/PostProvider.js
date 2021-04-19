@@ -26,21 +26,13 @@ export const PostProvider = (props) => {
   }
 
   const addPost = (post) => {
-    return getToken().then((token) =>
-      fetch("/api/post", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(post),
-      }).then((resp) => {
-        if (resp.ok) {
-          return resp.json();
-        }
-        throw new Error("Unauthorized");
-      })
-    );
+    return fetch("/api/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    })
   }
 
   const updatePost = (post) => {

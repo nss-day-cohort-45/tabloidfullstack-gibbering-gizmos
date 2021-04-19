@@ -1,8 +1,12 @@
 import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "../providers/PostProvider"
+import { CategoryContext } from '../providers/CategoryProvider';
+import { useHistory } from 'react-router-dom';
 
 export const PostForm = () => {
   const { addPost, getAllPosts } = useContext(PostContext)
+  const { categories, getAllCategories } = useContext(CategoryContext);
+  const history = useHistory();
 
   const [post, setPost] = useState({
     title: "",
@@ -11,8 +15,13 @@ export const PostForm = () => {
     publishDateTime: "",
     isApproved: Boolean,
     categoryId: 0,
-    userProfileId: 0
+    userProfileId: currentUser
   });
+
+  // This is returning JSON
+  const userProfile = sessionStorage.getItem("userProfile");
+  // Parsing the JSON returned above into an object so we can use it
+  var currentUser = JSON.parse(userProfile)
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,6 +32,7 @@ export const PostForm = () => {
     setPost(newPost)
   }
   useEffect(() => {
+    getAllCategories()
   }, [post])
 
   const handleClickSavePost = () => {
@@ -57,9 +67,9 @@ export const PostForm = () => {
       window.alert("Please select a category")
     }
 
-    else if (userProfileId === 0 || userProfileId === NaN) {
-      window.alert("Please select a user")
-    }
+    // else if (userProfileId === 0 || userProfileId === NaN) {
+    //   window.alert("Please select a user")
+    // }
 
     else {
       setIsLoading(true);
@@ -76,6 +86,7 @@ export const PostForm = () => {
       })
         .then(() => setIsLoading(false))
         .then(getAllPosts)
+        .then(history.push("/posts"));
     }
   }
 
@@ -116,21 +127,29 @@ export const PostForm = () => {
         <fieldset>
           <div className="form-group">
             <label htmlFor="categoryId">Category: </label>
-            <input type="dropdown" id="categoryId" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Category" value={post.categoryId} />
+            <select value={post.categoryId} id="categoryId" className="form-control" onChange={handleControlledInputChange}>
+              <option value="0">Select a category</option>
+              {categories.map(c => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
           </div>
         </fieldset>
 
-        <fieldset>
+        {/* <fieldset>
           <div className="form-group">
             <label htmlFor="userProfileId">User Profile: </label>
             <input type="text" id="userProfileId" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="User profile" value={post.userProfileId} />
           </div>
-        </fieldset>
+        </fieldset> */}
 
 
         <button className="btn btn-primary"
           disabled={isLoading}
-          onClick={event => {
+          onClick=
+          {event => {
             event.preventDefault()
             handleClickSavePost()
           }}>
