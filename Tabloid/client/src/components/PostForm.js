@@ -116,7 +116,7 @@ export const PostForm = () => {
         <fieldset>
           <div className="form-group">
             <label htmlFor="categoryId">Category: </label>
-            <input type="text" id="categoryId" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Category" value={post.categoryId} />
+            <input type="dropdown" id="categoryId" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Category" value={post.categoryId} />
           </div>
         </fieldset>
 
