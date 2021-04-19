@@ -44,7 +44,7 @@ export const PostProvider = (props) => {
   }
 
   return (
-    <PostContext.Provider value={{ posts, setPosts, getUserPosts, addPost }}>
+    <PostContext.Provider value={{ posts, setPosts, getUserPosts, addPost, getAllPosts }}>
       {props.children}
     </PostContext.Provider>
   )
