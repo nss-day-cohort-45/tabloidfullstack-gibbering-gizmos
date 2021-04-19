@@ -11,6 +11,7 @@ import PostEdit from "./posts/PostEdit";
 import CategoryList from "./categories/CategoryList";
 import CategoryDelete from './categories/CategoryDelete'
 import CategoryForm from "./categories/CategoryForm";
+import CategoryEdit from "./categories/CategoryEdit";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);

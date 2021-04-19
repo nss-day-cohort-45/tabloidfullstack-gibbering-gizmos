@@ -53,7 +53,7 @@ export const CategoryProvider = (props) => {
   }
 
   return (
-    <CategoryContext.Provider value={{categories, setCategories, getAllCategories, addCategory, deleteCategory, getCategoryById}}>
+    <CategoryContext.Provider value={{categories, setCategories, getAllCategories, addCategory, updateCategory, deleteCategory, getCategoryById}}>
       {props.children}
     </CategoryContext.Provider>
   )

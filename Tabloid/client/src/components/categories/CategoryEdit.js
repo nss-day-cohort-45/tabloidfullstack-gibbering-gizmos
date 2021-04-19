@@ -64,7 +64,7 @@ const CategoryEdit = () => {
             <Button color="info" onClick={submit}>
               Submit
             </Button>
-            <Button color="info" onClick={cancel}>Cancel</Button>
+            <Button color="danger" onClick={cancel}>Cancel</Button>
           </CardBody>
         </Card>
       </div>

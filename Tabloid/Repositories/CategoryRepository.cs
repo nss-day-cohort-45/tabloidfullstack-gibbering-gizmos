@@ -2,13 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Tabloid.Models;
 using Tabloid.Utils;
-<<<<<<< HEAD
 using System.Collections.Generic;
-using System;
-using System.Data;
-using System.Reflection.PortableExecutable;
-=======
->>>>>>> main
 
 namespace Tabloid.Repositories
 {

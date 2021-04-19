@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { CategoryContext } from '../providers/CategoryProvider';
+import { CategoryContext } from '../../providers/CategoryProvider';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const CategoryForm = () => {

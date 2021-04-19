@@ -20,7 +20,7 @@ const Category = ({category}) => {
         <p>{category.name}</p>
       </CardBody>
       <CardFooter>
-        <Button color="info" onclick={edit}>Edit</Button>
+        <Button color="info" onClick={edit}>Edit</Button>
         <Button color="danger" onClick={deleteIt}>Delete</Button>
       </CardFooter>
     </Card>
