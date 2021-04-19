@@ -78,6 +78,7 @@ namespace Tabloid.Repositories
         /// Allows user to edit a category.
         /// </summary>
         /// <param name="category">The selected category object to be edited. </param>
+        /// 
         public void UpdateCategory(Category category)
         {
             using(var conn=Connection)
