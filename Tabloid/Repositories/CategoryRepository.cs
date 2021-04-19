@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,26 @@ namespace Tabloid.Repositories
 
         public void AddCategory(Category category)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            { 
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    INSERT INTO Category ([Name])
+                    OUTPUT INSERTED.ID
+                    VALUES (@name);
+                    ";
+
+                    cmd.Parameters.AddWithValue("@name", category.Name);
+
+                    int newlyCreatedId = (int)cmd.ExecuteScalar();
+
+                    category.Id = newlyCreatedId;
+                }
+            }
         }
+    
 
         public void DeleteCategory(int id)
         {

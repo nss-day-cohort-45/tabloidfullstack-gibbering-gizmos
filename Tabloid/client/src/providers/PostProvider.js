@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { UserProfileContext } from './UserProfileProvider';
+import { UserProfileContext } from "./UserProfileProvider";
 
 export const PostContext = React.createContext();
 
@@ -72,8 +72,19 @@ export const PostProvider = (props) => {
         ));
   }
 
+  const deletePost = (id) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+  };
+
   return (
-    <PostContext.Provider value={{ posts, setPosts, getAllPosts, getUserPosts, getPostById, updatePost }}>
+    <PostContext.Provider value={{ posts, setPosts, getAllPosts, getUserPosts, getPostById, updatePost, deletePost, addPost }}>
       {props.children}
     </PostContext.Provider>
   )

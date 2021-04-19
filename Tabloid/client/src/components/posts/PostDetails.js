@@ -9,7 +9,7 @@ import { useHistory, useParams } from "react-router-dom";
 // Publication date (MM/DD/YYYY)
 // Author's Display Name
 const PostDetails = () => {
-    const { getPostById } = useContext(PostContext);
+    const { getPostById, deletePost } = useContext(PostContext);
     const [ post, setPost ] = useState();
     const {id} = useParams();
     const history = useHistory();
@@ -33,6 +33,14 @@ const PostDetails = () => {
         history.push(`/posts/edit/${post.id}`)
       }
        
+
+    const handleDeletePost = (postName) => {
+        if (window.confirm(`Are you sure you want to delete ${postName}?`)) {
+            deletePost(post.id).then(getPostById);
+            history.push("/posts");
+        }
+    };
+
     if ( !post ) {
         return null;
     };
@@ -54,7 +62,9 @@ const PostDetails = () => {
                 </CardBody>
                 <CardFooter>   
                 <Button onClick={editPost}>Edit</Button>
-                <Button color="danger">Delete</Button>
+                <Button color="danger" onClick={() => handleDeletePost(post.title)}>
+                        Delete
+                    </Button>
                 </CardFooter>
             </Card>
         );
