@@ -8,9 +8,8 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import { PostContext } from "../providers/PostProvider";
+import { PostContext } from '../../providers/PostProvider';
 import { useHistory, useParams } from "react-router-dom";
-import { UserProfileContext } from "../providers/UserProfileProvider";
 
 const PostEdit = () => {
     

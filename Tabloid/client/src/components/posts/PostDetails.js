@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Button } from "reactstrap";
-import { PostContext } from "../../providers/PostProvider"
+import { PostContext } from '../../providers/PostProvider';
 import { useHistory, useParams } from "react-router-dom";
 
 // Title

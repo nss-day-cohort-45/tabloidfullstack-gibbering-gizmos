@@ -4,10 +4,10 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import UserPosts from './UserPosts';
-import PostList from './PostList';
+import UserPosts from './posts/UserPosts';
+import PostList from './posts/PostList';
 import PostDetails from "./posts/PostDetails";
-import PostEdit from "./PostEdit"
+import PostEdit from "./posts/PostEdit"
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
