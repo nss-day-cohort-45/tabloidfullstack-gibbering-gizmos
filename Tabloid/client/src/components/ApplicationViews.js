@@ -7,6 +7,7 @@ import Hello from "./Hello";
 import UserPosts from './UserPosts';
 import PostList from './PostList';
 import PostDetails from "./PostDetails";
+import CategoryList from "./CategoryList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -36,6 +37,10 @@ export default function ApplicationViews() {
 
         <Route path={`/posts/:id`}>
           <PostDetails/>
+        </Route>
+
+        <Route path="/categories" exact>
+          <CategoryList />
         </Route>
       </Switch>
     </main>
