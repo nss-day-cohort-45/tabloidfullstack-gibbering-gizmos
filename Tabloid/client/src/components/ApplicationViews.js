@@ -10,6 +10,7 @@ import PostDetails from "./posts/PostDetails";
 import PostEdit from "./posts/PostEdit";
 import CategoryList from "./CategoryList";
 import CategoryForm from "./CategoryForm";
+import TagList from "./TagList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -51,6 +52,10 @@ export default function ApplicationViews() {
 
         <Route path={`/categories/add`}>
           <CategoryForm />
+        </Route>
+
+        <Route path="/tags" exact>
+          <TagList />
         </Route>
         
       </Switch>
