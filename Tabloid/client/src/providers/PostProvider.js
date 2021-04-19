@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { UserProfileContext } from './UserProfileProvider';
+import { UserProfileContext } from "./UserProfileProvider";
 
 export const PostContext = React.createContext();
 
@@ -9,10 +9,10 @@ export const PostProvider = (props) => {
     const { getToken } = useContext(UserProfileContext);
 
     const getAllPosts = () => {
-      return fetch("/api/post")
-        .then((res) => res.json())
-        .then(setPosts);
-    }
+        return fetch("/api/post")
+            .then((res) => res.json())
+            .then(setPosts);
+    };
 
     const getUserPosts = (id) => {
         return getToken().then((token) =>
@@ -38,24 +38,34 @@ export const PostProvider = (props) => {
     }
 
     const getPostById = (id) => {
-      return getToken().then((token) =>
-      fetch(`${apiUrl}/${id}`, {
-        method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
-      })
-      .then((res) => {
-        console.log(res,"response from get")
+        return getToken().then((token) =>
+            fetch(`${apiUrl}/${id}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }).then((res) => {
+                console.log(res, "response from get");
 
-        return res.json()}
-        
-        ));
-    } 
+                return res.json();
+            })
+        );
+    };
+
+    const deletePost = (id) => {
+        return getToken().then((token) =>
+            fetch(`${apiUrl}/Post/${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+        );
+    };
 
     return (
-        <PostContext.Provider value={{ posts, setPosts, getAllPosts, getUserPosts, getPostById, updatePost}}>
+        <PostContext.Provider value={{ posts, setPosts, getAllPosts, getUserPosts, getPostById, updatePost, deletePost}}>
             {props.children}
         </PostContext.Provider>
-    )
-}
+    );
+};
