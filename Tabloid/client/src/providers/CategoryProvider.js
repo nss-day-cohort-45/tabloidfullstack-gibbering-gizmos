@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import UserProfileContext from './UserProfileProvider'
+import { UserProfileContext } from './UserProfileProvider';
 
 export const CategoryContext = React.createContext();
 
@@ -24,10 +24,14 @@ export const CategoryProvider = (props) => {
       }))
   }
 
-  
+  const getCategoryById = (id) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/${id}`)
+        .then((res) => res.json()))
+  }
 
   return (
-    <CategoryContext.Provider value={{categories, setCategories, getAllCategories, deleteCategory}}>
+    <CategoryContext.Provider value={{categories, setCategories, getAllCategories, deleteCategory, getCategoryById}}>
       {props.children}
     </CategoryContext.Provider>
   )
