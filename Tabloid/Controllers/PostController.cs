@@ -40,7 +40,15 @@ namespace Tabloid.Controllers
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
-        { return null; }
+        {
+            //if(id != post.UserProfileId)
+            //{
+            //    return BadRequest();
+            //}
+
+            _postRepository.UpdatePost(post);
+            return NoContent();
+        }
        
         [HttpGet("GetAllPostsByUserId")]
         public IActionResult GetAllPostsByUserId(int id)

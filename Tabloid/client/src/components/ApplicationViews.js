@@ -5,7 +5,11 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import PostForm from "./PostForm"
-import UserPosts from './UserPosts';
+import UserPosts from './posts/UserPosts';
+import PostList from './posts/PostList';
+import PostDetails from "./posts/PostDetails";
+import PostEdit from "./posts/PostEdit";
+import CategoryList from "./CategoryList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -29,9 +33,26 @@ export default function ApplicationViews() {
           <PostForm />
         </Route>
 
+        <Route path="/posts" exact>
+          <PostList />
+        </Route>
+
         <Route path={`/myfeed/:id`}>
           <UserPosts />
         </Route>
+
+        <Route path={`/posts/:id`} exact>
+          <PostDetails />
+        </Route>
+
+        <Route path={`/posts/edit/:id`}>
+          <PostEdit />
+        </Route>
+
+        <Route path="/categories" exact>
+          <CategoryList />
+        </Route>
+
       </Switch>
     </main>
   );
