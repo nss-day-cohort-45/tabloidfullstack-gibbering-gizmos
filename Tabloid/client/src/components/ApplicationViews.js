@@ -9,51 +9,60 @@ import PostList from './posts/PostList';
 import PostDetails from "./posts/PostDetails";
 import PostEdit from "./posts/PostEdit";
 import CategoryList from "./categories/CategoryList";
-import CategoryForm from "./CategoryForm";
+import CategoryDelete from './categories/CategoryDelete'
+import CategoryForm from "./categories/CategoryForm";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
 
   return (
     <main>
-      <Switch>
-        <Route path="/" exact>
-          {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
-        </Route>
+        <Switch>
+          <Route path="/" exact>
+            {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
+          </Route>
 
-        <Route path="/login">
-          <Login />
-        </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
 
-        <Route path="/register">
-          <Register />
-        </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
 
-        <Route path="/posts" exact>
-          <PostList />
-        </Route>
+          <Route path="/posts" exact>
+            <PostList />
+          </Route>
 
-        <Route path={`/myfeed/:id`}>
-          <UserPosts/>
-        </Route>
+          <Route path={`/myfeed/:id`}>
+            <UserPosts/>
+          </Route>
 
-        <Route path={`/posts/:id`} exact>
-          <PostDetails/>
-        </Route>
+          <Route path={`/posts/:id`} exact>
+            <PostDetails/>
+          </Route>
 
-        <Route path={`/posts/edit/:id`}>
-          <PostEdit/>
-        </Route>
+          <Route path={`/posts/edit/:id`}>
+            <PostEdit/>
+          </Route>
 
-        <Route path="/categories" exact>
-          <CategoryList />
-        </Route>
+          <Route path="/categories" exact>
+            <CategoryList />
+          </Route>
 
-        <Route path={`/categories/add`}>
-          <CategoryForm />
-        </Route>
-        
-      </Switch>
+          <Route path={`/categories/delete/:id`}>
+            <CategoryDelete/>
+          </Route>
+
+          <Route path={`/categories/add`}>
+            <CategoryForm />
+          </Route>
+
+          <Route path={`/categories/edit/:id`}>
+            <CategoryEdit/>
+          </Route>
+          
+        </Switch>
     </main>
   );
 };

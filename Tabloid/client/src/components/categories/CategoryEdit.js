@@ -37,11 +37,15 @@ const CategoryEdit = () => {
     updatedCategory.name = name
 
     updateCategory(updatedCategory).then((c) => {
-      history.push(`/categories/${id}`);
+      history.push(`/categories`);
     });
   };
 
-  if(category === null)
+  const cancel = () => {
+    history.push(`/categories`);
+  };
+
+  if (category === null)
   {
     return null
   }
@@ -58,8 +62,9 @@ const CategoryEdit = () => {
               </FormGroup>
             </Form>
             <Button color="info" onClick={submit}>
-              SUBMIT
+              Submit
             </Button>
+            <Button color="info" onClick={cancel}>Cancel</Button>
           </CardBody>
         </Card>
       </div>
