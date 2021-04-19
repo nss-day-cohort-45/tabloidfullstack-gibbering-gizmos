@@ -8,9 +8,6 @@ import UserPosts from './posts/UserPosts';
 import PostList from './posts/PostList';
 import PostDetails from "./posts/PostDetails";
 import PostEdit from "./posts/PostEdit";
-import CategoryList from "./CategoryList";
-import CategoryDelete from './CategoryDelete'
-import CategoryForm from "./CategoryForm";
 import CategoryList from "./categories/CategoryList";
 import CategoryDelete from './categories/CategoryDelete'
 import CategoryForm from "./categories/CategoryForm";
