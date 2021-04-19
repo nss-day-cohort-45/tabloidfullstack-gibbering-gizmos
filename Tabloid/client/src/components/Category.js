@@ -1,8 +1,14 @@
 import React from "react";
 import { Button, Card, CardBody, CardFooter } from "reactstrap";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Category = ({category}) => {
+
+  const history = useHistory();
+
+  const deleteIt = () => {
+    history.push(`/categories/delete/${category.id}`)
+  }
 
   return (
     <Card className="m-4">
@@ -11,7 +17,7 @@ const Category = ({category}) => {
       </CardBody>
       <CardFooter>
         <Button>Edit</Button>
-        <Button color="danger">Delete</Button>
+        <Button color="danger" onClick={deleteIt}>Delete</Button>
       </CardFooter>
     </Card>
   );
