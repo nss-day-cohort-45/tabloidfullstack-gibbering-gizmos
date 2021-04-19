@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Models;
+using Tabloid.Utils;
 
 namespace Tabloid.Repositories
 {
@@ -16,9 +17,35 @@ namespace Tabloid.Repositories
             throw new NotImplementedException();
         }
 
-        public void DeleteTag(int id)
+        public void DeleteTag(int tagId)
         {
-            throw new NotImplementedException();
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    DELETE From PostTag
+                    WHERE TagId = @tagId
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@tagId", tagId);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    DELETE From Tag
+                    WHERE Id = @tagId
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@tagId", tagId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public List<Tag> GetAllTags()

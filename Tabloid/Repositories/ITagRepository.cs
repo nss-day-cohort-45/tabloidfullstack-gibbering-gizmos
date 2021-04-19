@@ -3,7 +3,7 @@ using Tabloid.Models;
 
 namespace Tabloid.Repositories
 {
-    internal interface ITagRepository
+    public interface ITagRepository
     {
         void AddTag(Tag tag);
         void DeleteTag(int id);
