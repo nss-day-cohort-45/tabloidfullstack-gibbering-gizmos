@@ -1,20 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 
 export const TagContext = React.createContext();
 
-export const tagProvider = (props) => {
+export const TagProvider = (props) => {
   const apiUrl = "/api/tag";
-  const [tags, setTags] = useState([]);
+  const [tag, setTag] = useState([]);
 
   const getAllTags = () => {
     return fetch(apiUrl)
       .then((res) => res.json())
-      .then(setTags);
+      .then(setTag);
   }
 
   return (
-    <CategoryContext.Provider value={{tags, setTags, getAllTags}}>
+    <TagContext.Provider value={{tag, setTag, getAllTags}}>
       {props.children}
-    </CategoryContext.Provider>
+    </TagContext.Provider>
   )
 } 

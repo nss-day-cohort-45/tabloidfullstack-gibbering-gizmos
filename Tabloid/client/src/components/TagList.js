@@ -6,7 +6,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const TagList = () => {
   const {tags, getAllTags } = useContext(TagContext);
-  const history = useHistory();
+  
   useEffect(() => {
     getAllTags();
   }, []);
