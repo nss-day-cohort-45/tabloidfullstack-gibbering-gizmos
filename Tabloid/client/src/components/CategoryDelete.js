@@ -8,7 +8,7 @@ const CategoryDelete = () => {
     const {id } = useParams();
     const [category, setCategory] = useState({});
     const history = useHistory();
-    const {deleteCategory, getCategoryById} = useContext(CategoryContext)
+    const {deleteCategory, getCategoryById, getAllCategories} = useContext(CategoryContext)
     
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
@@ -21,6 +21,7 @@ const CategoryDelete = () => {
 
     const deleteIt = () => {
         deleteCategory(id)
+            .then(getAllCategories())
             .then(history.push(`/categories`))
     }
 

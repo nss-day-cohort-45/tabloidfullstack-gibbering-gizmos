@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Models;
 using Tabloid.Utils;
-using Microsoft.Data.SqlClient;
 
 namespace Tabloid.Repositories
 {
