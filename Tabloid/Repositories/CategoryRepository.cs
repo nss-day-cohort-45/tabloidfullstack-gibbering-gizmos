@@ -23,7 +23,30 @@ namespace Tabloid.Repositories
 
         public List<Category> GetAllCategories()
         {
-            throw new NotImplementedException();
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Id, Name FROM Category ORDER BY [Name]";
+                    var reader = cmd.ExecuteReader();
+
+                    var categories = new List<Category>();
+
+                    while (reader.Read())
+                    {
+                        categories.Add(new Category()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                        });
+                    }
+
+                    reader.Close();
+
+                    return categories;
+                }
+            }
         }
 
         public Category GetCategoryById(int id)
