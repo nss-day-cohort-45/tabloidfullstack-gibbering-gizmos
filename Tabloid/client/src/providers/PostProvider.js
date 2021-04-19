@@ -54,7 +54,7 @@ export const PostProvider = (props) => {
 
     const deletePost = (id) => {
         return getToken().then((token) =>
-            fetch(`${apiUrl}/Post/${id}`, {
+            fetch(`${apiUrl}/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
