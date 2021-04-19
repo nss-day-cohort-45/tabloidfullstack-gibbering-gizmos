@@ -18,7 +18,7 @@ namespace Tabloid.Repositories
 
         public void DeleteCategory(int id)
         {
-            throw new NotImplementedException();
+            
         }
 
         public List<Category> GetAllCategories()

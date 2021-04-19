@@ -20,5 +20,12 @@ namespace Tabloid.Controllers
         {
             return Ok(_categoryRepository.GetAllCategories());
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _categoryRepository.DeleteCategory(id);
+            return NoContent();
+        }
     }
 }
