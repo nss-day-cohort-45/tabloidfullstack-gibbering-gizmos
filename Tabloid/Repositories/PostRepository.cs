@@ -142,7 +142,7 @@ namespace Tabloid.Repositories
         /// Adds a post to the database.
         /// </summary>
         /// <param name="post"></param>
-        public void AddPost(Post post)
+        public int AddPost(Post post)
         { 
             using (var conn = Connection)
             {
@@ -164,7 +164,7 @@ namespace Tabloid.Repositories
                     DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
                     DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
 
-                    post.Id = (int)cmd.ExecuteScalar();
+                    return post.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }

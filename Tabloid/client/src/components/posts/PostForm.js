@@ -24,6 +24,7 @@ export const PostForm = () => {
 
 
   const [isLoading, setIsLoading] = useState(false);
+  const [postObj, setPostObj] = useState({});
 
   const handleControlledInputChange = (event) => {
     const newPost = { ...post }
@@ -79,11 +80,18 @@ export const PostForm = () => {
         userProfileId: parseInt(currentUser.id),
         dateCreated: Date.now
       })
+        .then(setPostObj)
         .then(() => setIsLoading(false))
         .then(getAllPosts)
-        .then(history.push("/posts"));
     }
   }
+
+  useEffect(() => {
+    debugger
+    if (postObj.id > 0) {
+      history.push(`/posts/${postObj.id}`);
+    }
+  }, [postObj])
 
   return (
     <>
