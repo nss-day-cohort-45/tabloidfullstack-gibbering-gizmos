@@ -12,19 +12,18 @@ import {
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Header() {
-  
+
   const { isLoggedIn, logout } = useContext(UserProfileContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
 
-  if(isLoggedIn === true)
-  {
+  if (isLoggedIn === true) {
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
     // Parsing the JSON returned above into an object so we can use it
     var currentUser = JSON.parse(userProfile)
-  }  
+  }
 
   return (
     <div>
@@ -33,7 +32,7 @@ export default function Header() {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            { /* When isLoggedIn === true, we will render the Home link */ }
+            { /* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn &&
               <>
                 <NavItem>
@@ -44,6 +43,9 @@ export default function Header() {
                 </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to={`/myfeed/${currentUser.id}`}>My Feed</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to={`/post/create`}>New Post</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to={`/categories`}>Categories</NavLink>

@@ -32,6 +32,18 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = tag.Id }, tag);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var tag = _tagRepository.GetTagById(id);
+            if (tag == null)
+            {
+                return null;
+            }
+
+            return Ok(tag);
+        }
+
         [HttpPut("{id}")]
         public IActionResult Put(int id, Tag tag)
         {
