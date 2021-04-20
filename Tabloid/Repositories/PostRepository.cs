@@ -1,11 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
-using Tabloid.Models;
-using Tabloid.Utils;
+﻿using System;
 using System.Collections.Generic;
-using System;
 using System.Data;
 using System.Reflection.PortableExecutable;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using Tabloid.Models;
+using Tabloid.Utils;
+
 
 namespace Tabloid.Repositories
 {
@@ -118,8 +119,7 @@ namespace Tabloid.Repositories
                               LEFT JOIN Category c ON p.CategoryId = c.id
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE PublishDateTime < SYSDATETIME()
-                              AND p.id = @id";
+                        WHERE p.id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
                     var reader = cmd.ExecuteReader();
@@ -137,8 +137,38 @@ namespace Tabloid.Repositories
                 }
             }
         }
-        public void AddPost(Post post)
-        { }
+
+        /// <summary>
+        /// Adds a post to the database.
+        /// </summary>
+        /// <param name="post"></param>
+        public int AddPost(Post post)
+        { 
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Post (
+                            Title, Content, Imagelocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId )
+                        OUTPUT INSERTED.ID
+                        VALUES (
+                            @Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime, @IsApproved, @CategoryId, @UserProfileId )";
+                    DbUtils.AddParameter(cmd, "@Title", post.Title);
+                    DbUtils.AddParameter(cmd, "@Content", post.Content);
+                    DbUtils.AddParameter(cmd, "@ImageLocation", DbUtils.ValueOrDBNull(post.ImageLocation));
+                    DbUtils.AddParameter(cmd, "@CreateDateTime", post.CreateDateTime);
+                    DbUtils.AddParameter(cmd, "@PublishDateTime", DbUtils.ValueOrDBNull(post.PublishDateTime));
+                    DbUtils.AddParameter(cmd, "@IsApproved", post.IsApproved);
+                    DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
+
+                    return post.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
         public void UpdatePost(Post post)
         {
             using(var conn = Connection)
