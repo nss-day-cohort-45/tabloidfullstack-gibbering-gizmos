@@ -286,43 +286,5 @@ namespace Tabloid.Repositories
                 }
             }
         }
-
-        //public List<Post> GetTagByPostId(int postId)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //            SELECT *
-        //            FROM Post p
-        //            LEFT JOIN PostTag pt ON pt.PostId = p.id
-        //            LEFT JOIN Tag t ON t.Id = pt.TagId
-        //            WHERE p.Id = @id";
-
-        //            cmd.Parameters.AddWithValue("@id", postId);
-
-        //            var reader = cmd.ExecuteReader();
-        //            var posts = new List<Post>();
-        //            while (reader.Read())
-        //            {
-        //                Post post = new Post
-        //                {
-
-        //                    tag = new Tag
-        //                    {
-        //                        Id = reader.GetInt32(reader.GetOrdinal("Id")),
-        //                        Name = reader.GetString(reader.GetOrdinal("Name"))
-        //                    },
-
-        //                };
-        //                posts.Add(post);
-        //            }
-        //            reader.Close();
-        //            return posts;
-        //        }
-        //    }
-        //}
     }
 }

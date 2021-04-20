@@ -15,9 +15,11 @@ namespace Tabloid.Controllers
     public class TagController : ControllerBase
     {
         private readonly ITagRepository _tagRepository;
+       
         public TagController(ITagRepository tagRepository)
         {
             _tagRepository = tagRepository;
+            
         }
 
         [HttpGet]
@@ -50,6 +52,16 @@ namespace Tabloid.Controllers
         {
             _tagRepository.DeleteTag(id);
             return NoContent();
+        }
+
+        [HttpGet("GetTagsByPost/{id}")]
+        public IActionResult GetAllTagsByPost(int id)
+        {
+
+            var tags = _tagRepository.GetTagsByPostId(id);
+
+            return Ok(tags);
+
         }
     }
 }

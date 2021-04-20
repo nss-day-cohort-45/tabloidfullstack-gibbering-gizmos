@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { PostContext } from '../../providers/PostProvider';
 import { useHistory, useParams } from "react-router-dom";
-import { TagList } from "../TagList";
+import { TagList } from "../tags/TagList";
 
 const PostEdit = () => {
     
@@ -25,7 +25,7 @@ const PostEdit = () => {
     const [imageLocation, setImageLocation] = useState("");
     const [category, setCategory] = useState("");
     const [publishedDate, setPublishedDate] = useState("");
-    const [tag, setTag] = useState("");
+    const [postTag, setPostTag] = useState("");
 
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
@@ -44,7 +44,7 @@ const PostEdit = () => {
         setImageLocation(post.imageLocation)
         setCategory(post.categoryId)
         setPublishedDate(post.publishedDate)
-        setTag(post.tag)
+        setPostTag(post.postTag)
     }, [post])
 
     // Submit button functionality for the form
@@ -61,7 +61,7 @@ const PostEdit = () => {
         updatedPost.content = content
         updatePost.category = category
         updatedPost.publishedDate = publishedDate
-        updatedPost.tag = tag
+        updatedPost.postTag = postTag
         
         // Update the database with the new post
         updatePost(updatedPost).then((p) => {
@@ -114,8 +114,8 @@ const PostEdit = () => {
                         <Label for="tag">Tag</Label>
                         <Input
                         id="tag"
-                        onChange={(e) => setTag(e.target.value)}
-                        value={tag}
+                        onChange={(e) => setPostTag(e.target.value)}
+                        value={postTag}
                         />
                     </FormGroup>
                     </Form>

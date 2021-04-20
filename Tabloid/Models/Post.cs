@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -36,6 +37,7 @@ namespace Tabloid.Models
 
         [DisplayName("Tags")]
         public string Tag { get; set; }
-        public Tag tag { get; set; }
+        public int tagId { get; set; }
+        public List<Tag> tags { get; set; }
     }
 }

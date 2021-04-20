@@ -12,8 +12,8 @@ import CategoryList from "./categories/CategoryList";
 import CategoryDelete from './categories/CategoryDelete'
 import CategoryForm from "./categories/CategoryForm";
 import CategoryEdit from "./categories/CategoryEdit";
-import TagList from "./TagList";
-import TagDelete from './TagDelete'
+import TagList from "./tags/TagList";
+import TagDelete from './tags/TagDelete'
 import TagForm from "./tags/TagForm"
 
 export default function ApplicationViews() {

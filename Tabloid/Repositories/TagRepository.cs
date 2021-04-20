@@ -130,7 +130,7 @@ namespace Tabloid.Repositories
             throw new NotImplementedException();
         }
 
-        public List<Tag> GetTagsByPostId()
+        public List<Tag> GetTagsByPostId(int id)
         {
             using (SqlConnection conn = Connection)
             {
@@ -140,7 +140,9 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"SELECT t.Name, pt.PostId, t.Id FROM Tag t 
                                         LEFT JOIN PostTag pt ON t.Id = pt.TagId 
                                         LEFT JOIN Post p ON p.Id = pt.PostId
-                                        WHERE pt.PostId IS NOT NULL";
+                                        WHERE p.id = @PostId";
+                    
+                    DbUtils.AddParameter(cmd, "@Postid", id);
 
                     List<Tag> tags = new List<Tag>();
 

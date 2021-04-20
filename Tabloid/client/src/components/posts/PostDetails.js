@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Button } from "reactstrap";
 import { PostContext } from '../../providers/PostProvider';
 import { useHistory, useParams } from "react-router-dom";
-import { TagList } from "../TagList";
+import { TagList } from "../tags/TagList";
 
 
 const PostDetails = () => {
