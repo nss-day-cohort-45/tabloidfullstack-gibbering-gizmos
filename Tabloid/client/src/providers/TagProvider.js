@@ -4,16 +4,16 @@ export const TagContext = React.createContext();
 
 export const TagProvider = (props) => {
   const apiUrl = "/api/tag";
-  const [tag, setTag] = useState([]);
+  const [tags, setTags] = useState([]);
 
   const getAllTags = () => {
     return fetch(apiUrl)
       .then((res) => res.json())
-      .then(setTag);
+      
   }
 
   return (
-    <TagContext.Provider value={{tag, setTag, getAllTags}}>
+    <TagContext.Provider value={{tags, setTags, getAllTags}}>
       {props.children}
     </TagContext.Provider>
   )

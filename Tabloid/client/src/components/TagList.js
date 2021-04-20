@@ -5,11 +5,12 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
 const TagList = () => {
-  const {tags, getAllTags } = useContext(TagContext);
+  const {tags, getAllTags, setTags } = useContext(TagContext);
   
   useEffect(() => {
-    getAllTags();
+    getAllTags().then(setTags);
   }, []);
+
 
 
 

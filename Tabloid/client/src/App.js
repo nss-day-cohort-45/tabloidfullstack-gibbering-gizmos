@@ -5,6 +5,7 @@ import { PostProvider } from "./providers/PostProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { CategoryProvider } from './providers/CategoryProvider';
+import { TagProvider } from './providers/TagProvider';
 
 
 function App() {
@@ -13,12 +14,14 @@ function App() {
       <UserProfileProvider>
         <PostProvider>
           <CategoryProvider>
-            <Header />
-            <ApplicationViews />
+            <TagProvider>
+              <Header />
+              <ApplicationViews />
+            </TagProvider>
           </CategoryProvider>
         </PostProvider>
       </UserProfileProvider>
-      
+
     </Router>
   );
 }
