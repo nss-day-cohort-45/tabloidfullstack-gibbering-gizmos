@@ -157,6 +157,10 @@ namespace Tabloid.Repositories
                             CategoryId = @CategoryId,
                             UserProfileId = @UserProfileId
                     WHERE id = @id
+
+                     UPDATE PostTag 
+                            SET TagId = @tagId
+                        WHERE PostId = @id
                     ";
 
                     cmd.Parameters.AddWithValue("@Title", post.Title);
@@ -168,6 +172,7 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
                     cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
                     cmd.Parameters.AddWithValue("@id", post.Id);
+                    cmd.Parameters.AddWithValue("@tagId", post.Tag);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -262,6 +267,62 @@ namespace Tabloid.Repositories
                     }
                 }
             };
+        }
+
+        public void InsertTag(int postId, int tagId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO PostTag (PostId, TagId)
+                                        VALUES (@postId, @tagId)";
+
+                    cmd.Parameters.AddWithValue("@postId", postId);
+                    cmd.Parameters.AddWithValue("@tagId", tagId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public List<Post> GetTagByPostId(int postId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT *
+                    FROM Post p
+                    LEFT JOIN PostTag pt ON pt.PostId = p.id
+                    LEFT JOIN Tag t ON t.Id = pt.TagId
+                    WHERE p.Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", postId);
+
+                    var reader = cmd.ExecuteReader();
+                    var posts = new List<Post>();
+                    while (reader.Read())
+                    {
+                        Post post = new Post
+                        {
+
+                            tag = new Tag
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
+                            },
+
+                        };
+                        posts.Add(post);
+                    }
+                    reader.Close();
+                    return posts;
+                }
+            }
         }
     }
 }

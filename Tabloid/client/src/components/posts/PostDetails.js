@@ -2,12 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Button } from "reactstrap";
 import { PostContext } from '../../providers/PostProvider';
 import { useHistory, useParams } from "react-router-dom";
+import { TagList } from "../TagList";
 
-// Title
-// Header image (if exists)
-// Content
-// Publication date (MM/DD/YYYY)
-// Author's Display Name
+
 const PostDetails = () => {
     const { getPostById, deletePost } = useContext(PostContext);
     const [ post, setPost ] = useState();
@@ -32,6 +29,10 @@ const PostDetails = () => {
     const editPost = () => {
         history.push(`/posts/edit/${post.id}`)
       }
+
+    const tagList = () => {
+        history.push("/api/tag")
+    }  
        
 
     const handleDeletePost = (postName) => {
@@ -62,6 +63,7 @@ const PostDetails = () => {
                 </CardBody>
                 <CardFooter>   
                 <Button onClick={editPost}>Edit</Button>
+                <Button onClick={tagList}>Manage Tags</Button>
                 <Button color="danger" onClick={() => handleDeletePost(post.title)}>
                         Delete
                     </Button>

@@ -9,16 +9,21 @@ namespace Tabloid.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
+        private readonly ITagRepository _tagRepository;
+
         private readonly IPostRepository _postRepository;
-        public PostController(IPostRepository postRepository)
+        public PostController(IPostRepository postRepository, ITagRepository tagRepository)
         {
             _postRepository = postRepository;
+            _tagRepository = tagRepository;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_postRepository.GetAllPosts()); 
+            var posts = _postRepository.GetAllPosts();
+            var tags = _tagRepository.GetTagsByPostId();
+            return Ok(posts); 
         }
 
         [HttpGet("{id}")]
