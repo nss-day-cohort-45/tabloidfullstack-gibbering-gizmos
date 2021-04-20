@@ -7,21 +7,21 @@ export const PostForm = () => {
   const { addPost, getAllPosts } = useContext(PostContext)
   const { categories, getAllCategories } = useContext(CategoryContext);
   const history = useHistory();
+  // This is returning JSON
+  const userProfile = sessionStorage.getItem("userProfile");
+  // Parsing the JSON returned above into an object so we can use it
+  var currentUser = JSON.parse(userProfile)
 
+  // Set the initial state for the post.
   const [post, setPost] = useState({
     title: "",
     content: "",
     imageLocation: "",
     publishDateTime: "",
-    isApproved: Boolean,
-    categoryId: 0,
-    userProfileId: currentUser
+    isApproved: true,
+    categoryId: 0
   });
 
-  // This is returning JSON
-  const userProfile = sessionStorage.getItem("userProfile");
-  // Parsing the JSON returned above into an object so we can use it
-  var currentUser = JSON.parse(userProfile)
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,20 +31,19 @@ export const PostForm = () => {
     newPost[event.target.id] = event.target.value
     setPost(newPost)
   }
+
   useEffect(() => {
     getAllCategories()
   }, [post])
 
+  // Handle clicking the save button and updating the initial post object with the info from the form, then checking all the fields to make sure they have information in them.
   const handleClickSavePost = () => {
 
     const title = post.title
     const content = post.content
     const imageLocation = post.imageLocation
-    const createDateTime = Date.now
     const publishDateTime = post.publishDateTime
-    const isApproved = true
     const categoryId = parseInt(post.categoryId)
-    const userProfileId = parseInt(post.userProfileId)
 
 
     if (title === "") {
@@ -67,10 +66,6 @@ export const PostForm = () => {
       window.alert("Please select a category")
     }
 
-    // else if (userProfileId === 0 || userProfileId === NaN) {
-    //   window.alert("Please select a user")
-    // }
-
     else {
       setIsLoading(true);
 
@@ -80,8 +75,8 @@ export const PostForm = () => {
         imageLocation: post.imageLocation,
         publishDateTime: post.publishDateTime,
         isApproved: true,
-        categoryId: post.categoryId,
-        userProfileId: parseInt(post.userProfileId),
+        categoryId: categoryId,
+        userProfileId: parseInt(currentUser.id),
         dateCreated: Date.now
       })
         .then(() => setIsLoading(false))
@@ -112,7 +107,7 @@ export const PostForm = () => {
 
         <fieldset>
           <div className="form-group">
-            <label htmlFor="imageLocation">Image: </label>
+            <label htmlFor="imageLocation">Image URL: </label>
             <input type="text" id="imageLocation" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Image" value={post.imageLocation} />
           </div>
         </fieldset>
@@ -137,14 +132,6 @@ export const PostForm = () => {
             </select>
           </div>
         </fieldset>
-
-        {/* <fieldset>
-          <div className="form-group">
-            <label htmlFor="userProfileId">User Profile: </label>
-            <input type="text" id="userProfileId" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="User profile" value={post.userProfileId} />
-          </div>
-        </fieldset> */}
-
 
         <button className="btn btn-primary"
           disabled={isLoading}
