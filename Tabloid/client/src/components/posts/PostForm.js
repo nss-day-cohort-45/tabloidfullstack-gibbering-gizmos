@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
-import { PostContext } from "../providers/PostProvider"
-import { CategoryContext } from '../providers/CategoryProvider';
+import { PostContext } from "../../providers/PostProvider"
+import { CategoryContext } from '../../providers/CategoryProvider';
 import { useHistory } from 'react-router-dom';
 
 export const PostForm = () => {
