@@ -52,7 +52,7 @@ const PostEdit = () => {
 
     // Submit button functionality for the form
     const submit = (e) => {
-        debugger
+        
         if(category !== 0)
         {
             // Creating new post object

@@ -6,6 +6,11 @@ export const PostTagContext = React.createContext();
 
 export const PostTagProvider = (props) => {
 
+    const apiUrl = '/api/postTag'
+const {getToken} = useContext(UserProfileContext)
+
+const [postTags, setPostTags] = useState([]);
+
 const getPostTagById = (id) => {
     return getToken().then((token) => {
         return fetch(`${apiUrl}/${id}`, {

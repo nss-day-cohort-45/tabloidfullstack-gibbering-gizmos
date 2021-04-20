@@ -8,7 +8,7 @@ const TagList = () => {
     const { tags, getAllTags, setTags } = useContext(TagContext);
 
     const history = useHistory();
-
+    
     useEffect(() => {
         getAllTags().then(setTags);
     }, []);
