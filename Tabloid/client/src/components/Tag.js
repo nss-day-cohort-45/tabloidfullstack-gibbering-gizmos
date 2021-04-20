@@ -1,20 +1,21 @@
 import React from "react";
 import { Button, Card, CardBody, CardFooter } from "reactstrap";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const Category = ({category}) => {
+const Tag = ({tag}) => {
+
+  const history = useHistory();
 
   return (
     <Card className="m-4">
       <CardBody>
-        <p>{category.name}</p>
+        <p>{tag.name}</p>
       </CardBody>
       <CardFooter>
-        <Button>Edit</Button>
-        <Button color="danger">Delete</Button>
+
       </CardFooter>
     </Card>
   );
 }  
 
-export default Category;
+export default Tag;
