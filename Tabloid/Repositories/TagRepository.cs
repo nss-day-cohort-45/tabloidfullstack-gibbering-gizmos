@@ -38,7 +38,30 @@ namespace Tabloid.Repositories
 
         public List<Tag> GetAllTags()
         {
-            throw new NotImplementedException();
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Id, Name FROM Tag ORDER BY [Name]";
+                    var reader = cmd.ExecuteReader();
+
+                    var categories = new List<Tag>();
+
+                    while (reader.Read())
+                    {
+                        categories.Add(new Tag()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                        });
+                    }
+
+                    reader.Close();
+
+                    return categories;
+                }
+            }
         }
 
         public Tag GetTagById(int id)

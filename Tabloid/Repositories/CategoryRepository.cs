@@ -1,11 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Tabloid.Models;
 using Tabloid.Utils;
+using System.Collections.Generic;
 
 namespace Tabloid.Repositories
 {
@@ -139,9 +136,29 @@ namespace Tabloid.Repositories
             }
         }
 
+        /// <summary>
+        /// Allows user to edit a category.
+        /// </summary>
+        /// <param name="category">The selected category object to be edited. </param>
+        /// 
         public void UpdateCategory(Category category)
         {
-            throw new NotImplementedException();
+            using(var conn=Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE Category
+                       SET Name = @Name
+                     WHERE Id = @Id";
+
+                    cmd.Parameters.AddWithValue("@Name", category.Name);
+                    cmd.Parameters.AddWithValue("@Id", category.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
