@@ -172,7 +172,7 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
                     cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
                     cmd.Parameters.AddWithValue("@id", post.Id);
-                    cmd.Parameters.AddWithValue("@tagId", post.Tag);
+                    cmd.Parameters.AddWithValue("@tagId", post.TagId);
 
                     cmd.ExecuteNonQuery();
                 }

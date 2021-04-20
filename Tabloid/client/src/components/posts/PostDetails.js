@@ -56,6 +56,7 @@ const PostDetails = () => {
                         <strong>{post.title}</strong>
                     </h2>
                     <p><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {post.publishDateTime}</p>
+                    <p>Tags: {post.tagId}</p>
                 </CardHeader>
                 <CardBody>
                     <img src={post.imageLocation} alt="header"/>
@@ -80,6 +81,7 @@ const PostDetails = () => {
                     <strong>{post.title}</strong>
                 </h2>
                 <p><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {post.publishDateTime}</p>
+                <p>Tags: {post.tagId}</p>
             </CardHeader>
             <CardBody>
                 <img src={post.imageLocation} alt="header"/>

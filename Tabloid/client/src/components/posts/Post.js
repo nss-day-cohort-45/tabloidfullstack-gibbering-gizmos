@@ -35,6 +35,7 @@ const Post = ({ post }) => {
                     </h2>
                 </CardHeader>
                 <CardBody>
+                    <p>Tags: {post.tagId}</p>
                     <p>Author: {post.userProfile.displayName}</p>
                     <p>Category: {post.category.name}</p>
                 </CardBody>
@@ -59,6 +60,7 @@ const Post = ({ post }) => {
                 </h2>
             </CardHeader>
             <CardBody>
+                <p>Tags: {post.tagId}</p>
                 <p>Author: {post.userProfile.displayName}</p>
                 <p>Category: {post.category.name}</p>
             </CardBody>
