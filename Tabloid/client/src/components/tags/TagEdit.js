@@ -35,10 +35,10 @@ const TagEdit = () => {
 
     updatedTag.name = name
 
-    updateTag(updatedTag).then((t) => {
-      history.push(`/tags`);
-    });
-  }
+    updateTag(updatedTag)
+      .then(() => history.push(`/tags`));
+  };
+  
 
   const cancel = () => {
     history.push(`/tags`);

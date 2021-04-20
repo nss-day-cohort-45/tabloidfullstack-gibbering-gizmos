@@ -45,17 +45,18 @@ export const TagProvider = (props) => {
   };
 
   const updateTag = (tag) => {
-      return fetch(`${apiUrl}/${tag.id}`), {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/${tag.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(tag)
-      }
+      }))
   }
 
     return (
-        <TagContext.Provider value={{ tags, setTags, getAllTags, addTag, deleteTag, getTagById }}>
+        <TagContext.Provider value={{ tags, setTags, getAllTags, addTag, deleteTag, getTagById, updateTag }}>
             {props.children}
         </TagContext.Provider>
     );
