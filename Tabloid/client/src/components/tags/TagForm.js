@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router";
-import { Form, FormGroup, Input, Label, Button } from "reactstrap";
+import { Form, FormGroup, Input, Label, Button, Container } from "reactstrap";
 import { TagContext } from "../../providers/TagProvider";
 
 const TagForm = () => {
@@ -20,23 +20,26 @@ const TagForm = () => {
 
     const backButton = () => {
         history.push("/tags");
-    }
+    };
 
     return (
-        <Form>
-            <FormGroup>
-                <Label for="tagName">Tag Name: </Label>
-                <Input
-                    id="tagName"
-                    type="text"
-                    onChange={(e) => setName(e.target.value)}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Button onClick={SaveButton}>Save</Button>
-                <Button onClick={backButton}>Back</Button>
-            </FormGroup>
-        </Form>
+        <Container>
+            <h2>Add a Tag</h2>
+            <Form>
+                <FormGroup>
+                    <Label for="tagName">Name:</Label>
+                    <Input
+                        id="tagName"
+                        type="text"
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Button onClick={SaveButton}>Save</Button>
+                    <Button onClick={backButton}>Back</Button>
+                </FormGroup>
+            </Form>
+        </Container>
     );
 };
 export default TagForm;
