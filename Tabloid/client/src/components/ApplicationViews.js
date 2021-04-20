@@ -13,6 +13,7 @@ import CategoryDelete from './categories/CategoryDelete'
 import CategoryForm from "./categories/CategoryForm";
 import CategoryEdit from "./categories/CategoryEdit";
 import TagList from "./TagList";
+import TagDelete from './TagDelete'
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -67,6 +68,10 @@ export default function ApplicationViews() {
           <Route path="/tags" exact>
             <TagList />
           </Route>  
+
+          <Route path="/tags/delete/:id">
+            <TagDelete/>
+          </Route>
           
         </Switch>
     </main>

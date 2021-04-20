@@ -78,7 +78,36 @@ namespace Tabloid.Repositories
 
         public Tag GetTagById(int id)
         {
-            throw new NotImplementedException();
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT Id, Name FROM Tag
+                    WHERE Id = @id
+                    ";
+
+                    
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    var reader = cmd.ExecuteReader();
+
+                    Tag tag = null;
+
+                    if (reader.Read())
+                    {
+                        tag = new Tag()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                        };
+                    }
+
+                    reader.Close();
+
+                    return tag;
+                }
+            }
         }
 
         public void UpdateTag(Tag tag)

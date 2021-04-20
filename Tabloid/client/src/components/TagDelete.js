@@ -1,25 +1,29 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Button } from "reactstrap";
+import { TagContext } from '../providers/TagProvider'
 import { useHistory, useParams } from "react-router-dom";
 
 const DeleteTag = () => {
+    const {getTagById, deleteTag, getAllTags} = useContext(TagContext);
     const {id } = useParams();
-    const [tag, setTag] = useState({})
+    const [tag, setTag] = useState({});
     const history = useHistory();
 
+
     useEffect(() => {
-        // getTagById(id).then(setTag)
+        getTagById(id).then(setTag);
     }, [])
 
     const deleteIt = () => {
-        // deleteTag(id)
-        //     .then(getAllTags())
-        //     .then(history.push(`/tags`))
+        deleteTag(id)
+            .then(getAllTags())
+            .then(history.push(`/tags`))
     }
 
     const cancelIt = () => {
         history.push(`/tags`)
     }
+
 
     return (
         <div className="container pt-4">
