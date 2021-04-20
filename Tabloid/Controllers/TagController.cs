@@ -19,11 +19,10 @@ namespace Tabloid.Controllers
             _tagRepository = tagRepository;
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpGet]
+        public IActionResult Get()
         {
-            _tagRepository.DeleteTag(id);
-            return NoContent();
+            return Ok(_tagRepository.GetAllTags());
         }
     }
 }
