@@ -6,13 +6,17 @@ const Tag = ({tag}) => {
 
   const history = useHistory();
 
+  const edit = () => {
+    history.push(`/tags/edit/${tag.id}`)
+  }
+
   return (
     <Card className="m-4">
       <CardBody>
         <p>{tag.name}</p>
       </CardBody>
       <CardFooter>
-
+        <Button color="info" onClick={edit}>Edit</Button>
       </CardFooter>
     </Card>
   );

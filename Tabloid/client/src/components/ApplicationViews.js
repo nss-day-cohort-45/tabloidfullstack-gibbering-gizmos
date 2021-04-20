@@ -67,6 +67,10 @@ export default function ApplicationViews() {
           <Route path="/tags" exact>
             <TagList />
           </Route>  
+
+          <Route path={`/tags/edit/:id`}>
+            <TagEdit />
+          </Route>
           
         </Switch>
     </main>
