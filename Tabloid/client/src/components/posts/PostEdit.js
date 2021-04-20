@@ -9,11 +9,13 @@ import {
   Button,
 } from "reactstrap";
 import { PostContext } from '../../providers/PostProvider';
+import { CategoryContext } from '../../providers/CategoryProvider'
 import { useHistory, useParams } from "react-router-dom";
 
 const PostEdit = () => {
     
     const {updatePost, getPostById} = useContext(PostContext) // Grabbing PostContext to gain access to the updatePost and getPostById methods
+    const {getAllCategories, categories} = useContext(CategoryContext)
     const { id } = useParams(); // Grabbing the ID with params
     const [post, setPost] = useState({}); // Local state used to set the post object so it can be manipulated
     const history = useHistory(); // Use history to push the user to a different view
@@ -33,37 +35,48 @@ const PostEdit = () => {
     // Onload useEffect to grab the proper post to edit by ID
     useEffect(() => {
         getPostById(id).then(setPost)
+            .then(getAllCategories)
     }, []);
 
     // Once the post has been set in state, update the form with previous post info
     useEffect(() => {
+        
         setTitle(post.title)
         setContent(post.content)
         setImageLocation(post.imageLocation)
         setCategory(post.categoryId)
         setPublishedDate(post.publishedDate)
+
     }, [post])
 
     // Submit button functionality for the form
     const submit = (e) => {
-        
-        // Creating new post object
+        debugger
+        if(category !== 0)
+        {
+            // Creating new post object
         const updatedPost = {
-          ...post
-        };
+            ...post
+          };
+          
+          // Adding the key/value pairs to the new post object
+          updatedPost.title = title
+          updatedPost.imageUrl = imageLocation
+          updatedPost.content = content
+          updatedPost.categoryId = category
+          updatedPost.publishedDate = publishedDate
+          
+          // Update the database with the new post
+          updatePost(updatedPost).then((p) => {
+            // Navigate the user back to the home route
+            history.push(`/posts/${id}`);
+          });
+        }
+        else
+        {
+            
+        }
         
-        // Adding the key/value pairs to the new post object
-        updatedPost.title = title
-        updatedPost.imageUrl = imageLocation
-        updatedPost.content = content
-        updatePost.category = category
-        updatedPost.publishedDate = publishedDate
-        
-        // Update the database with the new post
-        updatePost(updatedPost).then((p) => {
-          // Navigate the user back to the home route
-          history.push(`/posts/${id}`);
-        });
       };
 
       // Check if post is null and make sure current user owns the post
@@ -99,12 +112,18 @@ const PostEdit = () => {
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="category">Category</Label>
-                        <Input
-                        id="category"
-                        onChange={(e) => setCategory(e.target.value)}
-                        value={category}
-                        />
+                        
+                        <Label for="category">Category</Label><br></br>
+                        <select id="category" onChange={(e) => setCategory(e.target.value)}>
+                            <option value="0">Select a category </option>
+                            {
+                                categories.map(c => (
+                                    <option key={c.id} value={c.id}>
+                                        {c.name}
+                                    </option>
+                                ))
+                            }
+                        </select>
                     </FormGroup>
                     </Form>
                     <Button color="info" onClick={submit}>
