@@ -125,9 +125,28 @@ namespace Tabloid.Repositories
             }
         }
 
+        /// <summary>
+        /// Allows user to edit a tag.
+        /// </summary>
+        /// <param name="tag">The selected tag object to be edited.</param>
         public void UpdateTag(Tag tag)
         {
-            throw new NotImplementedException();
+            using(var conn=Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE Tag
+                       SET Name = @Name
+                     WHERE Id = @Id";
+
+                    cmd.Parameters.AddWithValue("@Name", tag.Name);
+                    cmd.Parameters.AddWithValue("@Id", tag.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public List<Tag> GetTagsByPostId(int id)

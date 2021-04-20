@@ -87,7 +87,6 @@ export const PostForm = () => {
   }
 
   useEffect(() => {
- 
     if (postObj.id > 0) {
       history.push(`/posts/${postObj.id}`);
     }
