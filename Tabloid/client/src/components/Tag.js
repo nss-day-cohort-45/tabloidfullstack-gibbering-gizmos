@@ -6,13 +6,17 @@ const Tag = ({tag}) => {
 
   const history = useHistory();
 
+  const deleteTag = () => {
+    history.push(`/tags/delete/${tag.id}`)
+  }
+
   return (
     <Card className="m-4">
       <CardBody>
         <p>{tag.name}</p>
       </CardBody>
       <CardFooter>
-
+        <Button onClick={deleteTag}>Delete</Button>
       </CardFooter>
     </Card>
   );
