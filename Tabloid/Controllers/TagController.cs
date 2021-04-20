@@ -25,20 +25,18 @@ namespace Tabloid.Controllers
         {
             return Ok(_tagRepository.GetAllTags());
         }
-<<<<<<< HEAD
+        [HttpPost]
+        public IActionResult Post(Tag tag)
+        {
+            _tagRepository.AddTag(tag);
+            return CreatedAtAction("Get", new { id = tag.Id }, tag);
+        }
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, Tag tag)
         {
             _tagRepository.UpdateTag(tag);
             return NoContent();
-=======
-        [HttpPost]
-        public IActionResult Post(Tag tag)
-        {
-            _tagRepository.AddTag(tag);
-            return CreatedAtAction("Get", new { id = tag.Id }, tag);
->>>>>>> main
         }
     }
 }

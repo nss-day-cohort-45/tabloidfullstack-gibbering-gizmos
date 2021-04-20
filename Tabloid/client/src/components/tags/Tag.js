@@ -10,6 +10,10 @@ const Tag = ({tag}) => {
     history.push(`/tags/edit/${tag.id}`)
   }
 
+  const deleteTag = () => {
+    history.push(`/tags/delete/${tag.id}`)
+  }
+
   return (
     <Card className="m-4">
       <CardBody>
@@ -17,6 +21,7 @@ const Tag = ({tag}) => {
       </CardBody>
       <CardFooter>
         <Button color="info" onClick={edit}>Edit</Button>
+        <Button color="danger" onClick={deleteTag}>Delete</Button>
       </CardFooter>
     </Card>
   );

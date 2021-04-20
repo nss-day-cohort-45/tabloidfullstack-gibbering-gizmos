@@ -31,9 +31,35 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void DeleteTag(int id)
+        public void DeleteTag(int tagId)
         {
-            throw new NotImplementedException();
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    DELETE From PostTag
+                    WHERE TagId = @tagId
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@tagId", tagId);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    DELETE From Tag
+                    WHERE Id = @tagId
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@tagId", tagId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public List<Tag> GetAllTags()
@@ -66,7 +92,36 @@ namespace Tabloid.Repositories
 
         public Tag GetTagById(int id)
         {
-            throw new NotImplementedException();
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT Id, Name FROM Tag
+                    WHERE Id = @id
+                    ";
+
+                    
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    var reader = cmd.ExecuteReader();
+
+                    Tag tag = null;
+
+                    if (reader.Read())
+                    {
+                        tag = new Tag()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                        };
+                    }
+
+                    reader.Close();
+
+                    return tag;
+                }
+            }
         }
 
         /// <summary>
