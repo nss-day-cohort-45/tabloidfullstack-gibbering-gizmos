@@ -15,11 +15,11 @@ namespace Tabloid.Controllers
     public class TagController : ControllerBase
     {
         private readonly ITagRepository _tagRepository;
-       
+
         public TagController(ITagRepository tagRepository)
         {
             _tagRepository = tagRepository;
-            
+
         }
 
         [HttpGet]
@@ -63,5 +63,9 @@ namespace Tabloid.Controllers
             return Ok(tags);
 
         }
+
+        
+
+
     }
 }

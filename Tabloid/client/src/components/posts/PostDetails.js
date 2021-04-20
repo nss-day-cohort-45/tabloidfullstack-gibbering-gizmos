@@ -31,7 +31,7 @@ const PostDetails = () => {
       }
 
     const tagList = () => {
-        history.push("/api/tag")
+        history.push("/tagManager/{id}")
     }  
        
 
