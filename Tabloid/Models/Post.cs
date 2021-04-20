@@ -37,7 +37,7 @@ namespace Tabloid.Models
 
         [DisplayName("Tags")]
         public string Tag { get; set; }
-        public int tagId { get; set; }
+        public int TagId { get; set; }
         public List<Tag> tags { get; set; }
     }
 }

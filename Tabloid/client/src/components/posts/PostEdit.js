@@ -25,7 +25,7 @@ const PostEdit = () => {
     const [imageLocation, setImageLocation] = useState("");
     const [category, setCategory] = useState("");
     const [publishedDate, setPublishedDate] = useState("");
-    const [postTag, setPostTag] = useState("");
+    const [tag, setTag] = useState("");
 
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
@@ -44,7 +44,7 @@ const PostEdit = () => {
         setImageLocation(post.imageLocation)
         setCategory(post.categoryId)
         setPublishedDate(post.publishedDate)
-        setPostTag(post.postTag)
+        setTag(post.tag)
     }, [post])
 
     // Submit button functionality for the form
@@ -61,7 +61,7 @@ const PostEdit = () => {
         updatedPost.content = content
         updatePost.category = category
         updatedPost.publishedDate = publishedDate
-        updatedPost.postTag = postTag
+        updatedPost.tagId = tag
         
         // Update the database with the new post
         updatePost(updatedPost).then((p) => {
@@ -114,8 +114,8 @@ const PostEdit = () => {
                         <Label for="tag">Tag</Label>
                         <Input
                         id="tag"
-                        onChange={(e) => setPostTag(e.target.value)}
-                        value={postTag}
+                        onChange={(e) => setTag(e.target.value)}
+                        value={tag}
                         />
                     </FormGroup>
                     </Form>
