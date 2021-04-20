@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Button } from "reactstrap";
-import { TagContext } from '../providers/TagProvider'
+import { TagContext } from '../../providers/TagProvider'
 import { useHistory, useParams } from "react-router-dom";
 
 const DeleteTag = () => {
