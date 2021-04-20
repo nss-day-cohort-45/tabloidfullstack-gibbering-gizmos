@@ -32,7 +32,11 @@ namespace Tabloid.Controllers
 
         [HttpPost]
         public IActionResult Post(Post post)
-        { return null; }
+        {
+            post.CreateDateTime = DateTime.Now;
+            _postRepository.AddPost(post);
+            return CreatedAtAction("Get", new { id = post.Id }, post);
+        }
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
