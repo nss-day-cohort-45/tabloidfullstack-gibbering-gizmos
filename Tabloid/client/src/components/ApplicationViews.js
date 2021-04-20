@@ -12,9 +12,10 @@ import CategoryList from "./categories/CategoryList";
 import CategoryDelete from './categories/CategoryDelete'
 import CategoryForm from "./categories/CategoryForm";
 import CategoryEdit from "./categories/CategoryEdit";
-import TagList from "./TagList";
-import TagDelete from './TagDelete'
-import TagForm from "./tags/TagForm"
+import TagList from "./tags/TagList";
+import TagDelete from './tags/TagDelete';
+import TagForm from "./tags/TagForm";
+import TagEdit from "./tags/TagEdit";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);

@@ -25,8 +25,8 @@ const TagEdit = () => {
   }, []);
 
   useEffect(() => {
-    setTag(tag.name)
-  }, [category])
+    setName(tag.name)
+  }, [tag])
 
   const submit = (e) => {
     const updatedTag = {
@@ -44,11 +44,6 @@ const TagEdit = () => {
     history.push(`/tags`);
   }
 
-  if (tag === null)
-  {
-    return null
-  }
-
   return (
     <div className="container pt-4">
       <div className="row justify-content-center">
@@ -57,10 +52,10 @@ const TagEdit = () => {
             <Form>
               <FormGroup>
                 <Label for="name">Name</Label>
-                <Input id="name" onchange={(e) => setName(e.target.value)} value={name}/>
+                <Input id="name" onChange={(e) => setName(e.target.value)} value={name}/>
               </FormGroup>
             </Form>
-            <Button color="info" onclick={submit}>Submit</Button>
+            <Button color="info" onClick={submit}>Submit</Button>
             <Button color="danger" onClick={cancel}>Cancel</Button>
           </CardBody>
         </Card>
