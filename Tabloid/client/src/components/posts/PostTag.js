@@ -10,49 +10,77 @@ import {
     Label,
     Input,
     Button,
-  } from "reactstrap";
+    CardFooter
+} from "reactstrap";
 
 
 const PostTagList = () => {
     const { tags, getAllTags, setTags } = useContext(TagContext);
-    const { addPostTag } = useContext(PostTagContext);
-    const  { id } = useParams();
+    const { addPostTag, setPostTags, getTagsByPostId, deletePostTag } = useContext(PostTagContext);
+    const { id } = useParams();
     const history = useHistory();
     const [postTag, setPostTag] = useState("");
+    const [listOfTags, setListOfTags] = useState([]);
+    const [chosenTag, setChosenTag] = useState({});
 
     useEffect(() => {
         getAllTags().then(setTags);
     }, []);
 
+    useEffect(() => {
+        getTagsByPostId(id).then(setListOfTags)
+    }, [])
+
     const handleSavePostTagButton = () => {
         const newPostTag = {
             ...postTag
-          };
-          newPostTag.tagId = postTag
-          newPostTag.postId = id
-        
-          addPostTag(newPostTag)
-        .then(history.push(`/posts/${id}`))
+        };
+        newPostTag.tagId = postTag
+        newPostTag.postId = id
+
+        addPostTag(newPostTag)
+            .then(history.push(`/posts/${id}`))
     };
-return (
 
-    <FormGroup>
+    const handleDeleteTag = (tagObject) => {
+        if (window.confirm(`Are you sure you want to delete ${tagObject.name}?`)) {
+            deletePostTag(tagObject.id).then(getTagsByPostId(id));
+            history.push(`/tagManager/${id}`);
+        }
+    };
 
-        <Label for="postTag">Add a Tag </Label><br></br>
-        <select id="postTag" onChange={(e) => setPostTag(e.target.value)}>
-            <option value="0">Select a tag </option>
-            {
-                tags.map(t => (
-                    <option key={t.id} value={t.id}>
-                        {t.name}
-                    </option>
-                ))
-            }
-        </select>
-        <Button onClick={handleSavePostTagButton}>Add Tag</Button>
-    </FormGroup>
-    
-)
-}  
+    return (
+
+        <>
+            <FormGroup>
+
+                <Label for="postTag">Add a Tag </Label><br></br>
+                <select id="postTag" onChange={(e) => setPostTag(e.target.value)}>
+                    <option value="0">Select a tag </option>
+                    {
+                        tags.map(t => (
+                            <option key={t.id} value={t.id}>
+                                {t.name}
+                            </option>
+                        ))
+                    }
+                </select>
+                <Button onClick={handleSavePostTagButton}>Add Tag</Button>
+            </FormGroup>
+            {listOfTags.map(pt => (
+            
+            <Card className="m-4">
+                <CardBody>
+                    <p>{pt.name}</p>
+                </CardBody>
+                <CardFooter>
+                    <Button color="danger" onClick={() => setChosenTag(pt)}>Delete</Button>
+                </CardFooter>
+            </Card>
+
+            ))}
+        </>
+    )
+}
 
 export default PostTagList;
