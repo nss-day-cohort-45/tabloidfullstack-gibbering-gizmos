@@ -187,6 +187,10 @@ namespace Tabloid.Repositories
                             CategoryId = @CategoryId,
                             UserProfileId = @UserProfileId
                     WHERE id = @id
+
+                     UPDATE PostTag 
+                            SET TagId = @tagId
+                        WHERE PostId = @id
                     ";
 
                     cmd.Parameters.AddWithValue("@Title", post.Title);
@@ -198,6 +202,7 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
                     cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
                     cmd.Parameters.AddWithValue("@id", post.Id);
+                    cmd.Parameters.AddWithValue("@tagId", post.PostTagId);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -293,5 +298,7 @@ namespace Tabloid.Repositories
                 }
             };
         }
+
+       
     }
 }

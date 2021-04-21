@@ -1,7 +1,17 @@
 import React, { useContext, useEffect, useState } from "react"
+import {
+  Form,
+  FormGroup,
+  Card,
+  CardBody,
+  Label,
+  Input,
+  Button,
+} from "reactstrap";
 import { PostContext } from "../../providers/PostProvider"
 import { CategoryContext } from '../../providers/CategoryProvider';
 import { useHistory } from 'react-router-dom';
+import { CardHeader } from "reactstrap";
 
 export const PostForm = () => {
   const { addPost, getAllPosts } = useContext(PostContext)
@@ -93,42 +103,33 @@ export const PostForm = () => {
   }, [postObj])
 
   return (
-    <>
-      <form className="postForm">
+    <div className="container pt-4">
+      <div className="row justify-content-center">
+        <Card className="col-sm-12 col-lg-6">
+        <CardHeader>
         <h2 className="postForm__title">Add new post</h2>
-
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="title">Title: </label>
-            <input type="text" id="title" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Title" value={post.title} />
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="content">Content: </label>
-            <input type="text" id="content" onChange={handleControlledInputChange} required autoFocus className="form-control"
+        </CardHeader> 
+        <CardBody>
+          <Form className="postForm">
+          <FormGroup>
+            <Label for="title">Title: </Label>
+            <Input type="text" id="title" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Title" value={post.title} />
+        </FormGroup>
+        <FormGroup>
+            <Label for="content">Content: </Label>
+            <Input type="textarea" id="content" onChange={handleControlledInputChange} required autoFocus className="form-control"
               placeholder="Content" value={post.content} />
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="imageLocation">Image URL: </label>
-            <input type="text" id="imageLocation" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Image" value={post.imageLocation} />
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="publishDateTime">Published Date Time: </label>
-            <input type="date" id="publishDateTime" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Published Date Time" value={post.publishDateTime} />
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <div className="form-group">
-            <label htmlFor="categoryId">Category: </label>
+        </FormGroup>
+        <FormGroup>
+            <Label for="imageLocation">Image URL: </Label>
+            <Input type="text" id="imageLocation" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Image" value={post.imageLocation} />
+        </FormGroup>
+        <FormGroup>
+            <Label for="publishDateTime">Published Date Time: </Label>
+            <Input type="date" id="publishDateTime" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Published Date Time" value={post.publishDateTime} />
+        </FormGroup>
+        <FormGroup>
+            <Label for="categoryId">Category: </Label>
             <select value={post.categoryId} id="categoryId" className="form-control" onChange={handleControlledInputChange}>
               <option value="0">Select a category</option>
               {categories.map(c => (
@@ -137,19 +138,21 @@ export const PostForm = () => {
                 </option>
               ))}
             </select>
-          </div>
-        </fieldset>
-
-        <button className="btn btn-primary"
+        </FormGroup>
+        </Form>
+        <Button color="info"
           disabled={isLoading}
           onClick=
           {event => {
             event.preventDefault()
             handleClickSavePost()
           }}>
-          Add post</button>
-      </form>
-    </>
+          Add post</Button>
+      </CardBody>
+      </Card>
+    </div>
+  </div>
+  
   )
 }
 

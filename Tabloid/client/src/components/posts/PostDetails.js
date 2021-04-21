@@ -2,17 +2,16 @@ import React, { useContext, useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Button, CardImg } from "reactstrap";
 import { PostContext } from '../../providers/PostProvider';
 import { useHistory, useParams } from "react-router-dom";
+import { PostTagContext } from "../../providers/PostTagProvider";
 
-// Title
-// Header image (if exists)
-// Content
-// Publication date (MM/DD/YYYY)
-// Author's Display Name
+
 const PostDetails = () => {
     const { getPostById, deletePost } = useContext(PostContext);
     const [ post, setPost ] = useState();
     const {id} = useParams();
     const history = useHistory();
+    const { getTagsByPostId } = useContext(PostTagContext);
+    const [ postTags, setPostTags ] = useState([]);
 
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
@@ -24,7 +23,11 @@ const PostDetails = () => {
         .then(setPost)
         
     }, []);
-
+    
+    useEffect(() =>{
+        getTagsByPostId(id).then(setPostTags)
+    }, [post])
+    
     useEffect(() => {
         console.log(post, "This is a post")
     }, [post])
@@ -44,6 +47,10 @@ const PostDetails = () => {
     const editPost = () => {
         history.push(`/posts/edit/${post.id}`)
       }
+
+    const tagList = () => {
+        history.push(`/tagManager/${post.id}`)
+    }  
        
 
     const handleDeletePost = (postName) => {
@@ -63,10 +70,12 @@ const PostDetails = () => {
             <div className="container">
                 <Card className="m-4">
                     <CardHeader>
-                        <h2 >
+                        <h2>
                             <strong>{post.title}</strong>
                         </h2>
                         <h6><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {new Date(post.publishDateTime).toLocaleString("en-US").split(', ')[0]}</h6>
+                        
+                        <p>Tags: {postTags.map(pt => pt.name)}</p>
                     </CardHeader>
                     <CardBody>
                         <CardImg src={post.imageLocation} alt="header"/>
@@ -74,6 +83,7 @@ const PostDetails = () => {
                     </CardBody>
                     <CardFooter className="text-right">   
                     <Button onClick={editPost}>Edit</Button>
+                    <Button onClick={tagList}>Manage Tags</Button>
                     <Button color="danger" onClick={() => handleDeletePost(post.title)}>
                             Delete
                         </Button>
@@ -87,10 +97,13 @@ const PostDetails = () => {
         <div className="container">
             <Card className="m-4">
                 <CardHeader>
-                    <h2 className="text-left px-2">
+                    <h2>
                         <strong>{post.title}</strong>
                     </h2>
+
                     <h6><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {new Date(post.publishDateTime).toLocaleString("en-US").split(', ')[0]}</h6>
+
+                    <p>Tags: {postTags.map(pt => pt.name)}</p>
                 </CardHeader>
                 <CardBody>
                     <CardImg src={post.imageLocation} alt="header"/>
