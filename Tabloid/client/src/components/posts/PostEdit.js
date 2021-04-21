@@ -11,6 +11,7 @@ import {
 import { PostContext } from '../../providers/PostProvider';
 import { CategoryContext } from '../../providers/CategoryProvider'
 import { useHistory, useParams } from "react-router-dom";
+import { TagList } from "../tags/TagList";
 
 const PostEdit = () => {
     
@@ -26,6 +27,7 @@ const PostEdit = () => {
     const [imageLocation, setImageLocation] = useState("");
     const [category, setCategory] = useState("");
     const [publishedDate, setPublishedDate] = useState("");
+    const [tag, setTag] = useState("");
 
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
@@ -46,12 +48,11 @@ const PostEdit = () => {
         setImageLocation(post.imageLocation)
         setCategory(post.categoryId)
         setPublishedDate(post.publishedDate)
-
     }, [post])
 
     // Submit button functionality for the form
     const submit = (e) => {
-        debugger
+        
         if(category !== 0)
         {
             // Creating new post object
@@ -124,6 +125,14 @@ const PostEdit = () => {
                                 ))
                             }
                         </select>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="tag">Tag</Label>
+                        <Input
+                        id="tag"
+                        onChange={(e) => setTag(e.target.value)}
+                        value={tag}
+                        />
                     </FormGroup>
                     </Form>
                     <Button color="info" onClick={submit}>
