@@ -45,7 +45,7 @@ const getPostTagById = (id) => {
 
 const getTagsByPostId = (id) => {
     return getToken().then((token) => {
-        return fetch('/api/PostTag/GetTagsByPostId/{id}', {
+        return fetch(`/api/PostTag/GetTagsByPostId/${id}`, {
           method: "GET",
           headers: {
               Authorization: `Bearer ${token}`,

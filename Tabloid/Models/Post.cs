@@ -36,8 +36,8 @@ namespace Tabloid.Models
         public UserProfile UserProfile { get; set; }
 
         [DisplayName("Tags")]
-        public string Tag { get; set; }
-        public int TagId { get; set; }
-        public List<Tag> tags { get; set; }
+        public string PostTag { get; set; }
+        public int PostTagId { get; set; }
+        public List<PostTag> postTags { get; set; }
     }
 }

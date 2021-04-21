@@ -75,8 +75,8 @@ namespace Tabloid.Repositories
                         {
                             id = reader.GetInt32(reader.GetOrdinal("Id")),
                             PostId = reader.GetInt32(reader.GetOrdinal("PostId")),
-                            TagId = reader.GetInt32(reader.GetOrdinal("TagId"))
-
+                            TagId = reader.GetInt32(reader.GetOrdinal("TagId")),
+                            Name = reader.GetString(reader.GetOrdinal("Name"))
 
                         };
                         postTags.Add(postTag);

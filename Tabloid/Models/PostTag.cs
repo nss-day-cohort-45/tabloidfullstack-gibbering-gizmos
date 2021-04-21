@@ -10,6 +10,6 @@ namespace Tabloid.Models
         public int id { get; set; }
         public int PostId { get; set; }
         public int TagId { get; set; }
-
+        public string Name { get; set; }
     }
 }
