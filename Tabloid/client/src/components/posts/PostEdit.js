@@ -98,7 +98,7 @@ const PostEdit = () => {
                     </FormGroup>
                     <FormGroup>
                         <Label for="content">Content</Label>
-                        <Input
+                        <Input type="textarea"
                         id="content"
                         onChange={(e) => setContent(e.target.value)}
                         value={content}
