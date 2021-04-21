@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -147,5 +148,42 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        public List<Tag> GetTagsByPostId(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT t.Name, pt.PostId, t.Id FROM Tag t 
+                                        LEFT JOIN PostTag pt ON t.Id = pt.TagId 
+                                        LEFT JOIN Post p ON p.Id = pt.PostId
+                                        WHERE p.id = @PostId";
+                    
+                    DbUtils.AddParameter(cmd, "@Postid", id);
+
+                    List<Tag> tags = new List<Tag>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Tag tag = new Tag()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            PostId = reader.GetInt32(reader.GetOrdinal("PostId"))
+                        };
+                        tags.Add(tag);
+                    }
+
+                    reader.Close();
+
+                    return tags;
+                }
+            }
+        }
+
+        
     }
 }
