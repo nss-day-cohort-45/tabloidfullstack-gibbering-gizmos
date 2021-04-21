@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Card, CardBody, CardFooter, CardHeader } from "reactstrap";
 import { Link, useHistory } from "react-router-dom";
 import { PostContext } from "../../providers/PostProvider";
 
+
+
 const Post = ({ post }) => {
     const { deletePost, getAllPosts } = useContext(PostContext);
+   
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
     // Parsing the JSON returned above into an object so we can use it
@@ -23,6 +26,8 @@ const Post = ({ post }) => {
         }
     };
 
+   
+
     if (currentUser.id === post.userProfileId) {
         return (
             <Card className="m-4">
@@ -35,7 +40,6 @@ const Post = ({ post }) => {
                     </h2>
                 </CardHeader>
                 <CardBody>
-                    <p>Tags: {post.tagId}</p>
                     <p>Author: {post.userProfile.displayName}</p>
                     <p>Category: {post.category.name}</p>
                 </CardBody>
@@ -60,7 +64,6 @@ const Post = ({ post }) => {
                 </h2>
             </CardHeader>
             <CardBody>
-                <p>Tags: {post.tagId}</p>
                 <p>Author: {post.userProfile.displayName}</p>
                 <p>Category: {post.category.name}</p>
             </CardBody>

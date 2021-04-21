@@ -28,11 +28,11 @@ const PostTagList = () => {
         const newPostTag = {
             ...postTag
           };
-          postTag.tagId = postTag
-          postTag.postId = id
+          newPostTag.tagId = postTag
+          newPostTag.postId = id
         
-          addPostTag(postTag)
-        .then(history.push(`/posts/${postTag.postId}`))
+          addPostTag(newPostTag)
+        .then(history.push(`/posts/${id}`))
     };
 return (
 

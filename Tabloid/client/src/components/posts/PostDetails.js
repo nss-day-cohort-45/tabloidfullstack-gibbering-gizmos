@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Button } from "reactstrap";
 import { PostContext } from '../../providers/PostProvider';
 import { useHistory, useParams } from "react-router-dom";
-import { TagList } from "../tags/TagList";
+import { PostTagContext } from "../../providers/PostTagProvider";
 
 
 const PostDetails = () => {
@@ -10,6 +10,8 @@ const PostDetails = () => {
     const [ post, setPost ] = useState();
     const {id} = useParams();
     const history = useHistory();
+    const { getTagsByPostId } = useContext(PostTagContext);
+    const [ postTags, setPostTags ] = useState([]);
 
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
@@ -21,7 +23,11 @@ const PostDetails = () => {
         .then(setPost)
         
     }, []);
-
+    
+    useEffect(() =>{
+        getTagsByPostId(id).then(setPostTags)
+    }, [post])
+    
     useEffect(() => {
         console.log(post, "This is a post")
     }, [post])
@@ -31,7 +37,7 @@ const PostDetails = () => {
       }
 
     const tagList = () => {
-        history.push("/tagManager/{id}")
+        history.push(`/tagManager/${post.id}`)
     }  
        
 
@@ -56,7 +62,7 @@ const PostDetails = () => {
                         <strong>{post.title}</strong>
                     </h2>
                     <p><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {post.publishDateTime}</p>
-                    <p>Tags: {post.tagId}</p>
+                    <p>Tags: {postTags.map(pt => pt.Name)}</p>
                 </CardHeader>
                 <CardBody>
                     <img src={post.imageLocation} alt="header"/>
@@ -81,7 +87,7 @@ const PostDetails = () => {
                     <strong>{post.title}</strong>
                 </h2>
                 <p><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {post.publishDateTime}</p>
-                <p>Tags: {post.tagId}</p>
+                <p>Tags: {postTags.map(pt => pt.Name)}</p>
             </CardHeader>
             <CardBody>
                 <img src={post.imageLocation} alt="header"/>

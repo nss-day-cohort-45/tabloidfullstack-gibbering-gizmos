@@ -25,7 +25,7 @@ namespace Tabloid.Controllers
         public IActionResult Post(PostTag postTag)
         {
             _postTagRepository.InsertTag(postTag);
-            return CreatedAtAction("Get", new { id = postTag.id }, postTag);
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
@@ -33,6 +33,14 @@ namespace Tabloid.Controllers
         {
             _postTagRepository.DeletePostTag(id);
             return NoContent();
+        }
+
+        [HttpGet("GetTagsByPostId/{id}")]
+        public IActionResult GetTagsByPostId(int id)
+        {
+            var postTags = _postTagRepository.GetTagByPostId(id);
+            return Ok(postTags);
+
         }
 
     }
