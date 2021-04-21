@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Card, CardBody, CardHeader, CardFooter, Button } from "reactstrap";
+import { Card, CardBody, CardHeader, CardFooter, Button, CardImg } from "reactstrap";
 import { PostContext } from '../../providers/PostProvider';
 import { useHistory, useParams } from "react-router-dom";
 
@@ -29,6 +29,18 @@ const PostDetails = () => {
         console.log(post, "This is a post")
     }, [post])
 
+    const FormattedContent = () => {
+        const paragraphs = post.content.split('\n')
+        let i = 0
+        return (
+            <div>
+            {paragraphs.map((p) => (
+                <p key={++i}>{p}</p>
+            ))}
+            </div>
+        )
+    }
+
     const editPost = () => {
         history.push(`/posts/edit/${post.id}`)
       }
@@ -48,42 +60,44 @@ const PostDetails = () => {
     if(currentUser.id === post.userProfileId)
     {
         return ( 
-        
+            <div className="container">
+                <Card className="m-4">
+                    <CardHeader>
+                        <h2 >
+                            <strong>{post.title}</strong>
+                        </h2>
+                        <h6><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {new Date(post.publishDateTime).toLocaleString("en-US").split(', ')[0]}</h6>
+                    </CardHeader>
+                    <CardBody>
+                        <CardImg src={post.imageLocation} alt="header"/>
+                        <FormattedContent />
+                    </CardBody>
+                    <CardFooter className="text-right">   
+                    <Button onClick={editPost}>Edit</Button>
+                    <Button color="danger" onClick={() => handleDeletePost(post.title)}>
+                            Delete
+                        </Button>
+                    </CardFooter>
+                </Card>
+            </div>
+        );
+    }
+
+    return ( 
+        <div className="container">
             <Card className="m-4">
                 <CardHeader>
                     <h2 className="text-left px-2">
                         <strong>{post.title}</strong>
                     </h2>
-                    <p><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {post.publishDateTime}</p>
+                    <h6><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {new Date(post.publishDateTime).toLocaleString("en-US").split(', ')[0]}</h6>
                 </CardHeader>
                 <CardBody>
-                    <img src={post.imageLocation} alt="header"/>
-                    <p>{post.content}</p>
+                    <CardImg src={post.imageLocation} alt="header"/>
+                    <FormattedContent />
                 </CardBody>
-                <CardFooter>   
-                <Button onClick={editPost}>Edit</Button>
-                <Button color="danger" onClick={() => handleDeletePost(post.title)}>
-                        Delete
-                    </Button>
-                </CardFooter>
             </Card>
-        );
-    }
-
-    return ( 
-        
-        <Card className="m-4">
-            <CardHeader>
-                <h2 className="text-left px-2">
-                    <strong>{post.title}</strong>
-                </h2>
-                <p><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {post.publishDateTime}</p>
-            </CardHeader>
-            <CardBody>
-                <img src={post.imageLocation} alt="header"/>
-                <p>{post.content}</p>
-            </CardBody>
-        </Card>
+        </div>
     );
 };
 
