@@ -61,8 +61,8 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                     SELECT *
                     FROM Post p
-                    LEFT JOIN PostTag pt ON pt.PostId = p.id
-                    LEFT JOIN Tag t ON t.Id = pt.TagId
+                    JOIN PostTag pt ON pt.PostId = p.id
+                    JOIN Tag t ON t.Id = pt.TagId
                     WHERE p.Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", postId);
