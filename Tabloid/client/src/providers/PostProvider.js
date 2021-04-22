@@ -9,9 +9,15 @@ export const PostProvider = (props) => {
   const { getToken } = useContext(UserProfileContext);
 
   const getAllPosts = () => {
-    return fetch("/api/post")
+    return getToken().then((token) =>
+      fetch("/api/post", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
       .then((res) => res.json())
-      .then(setPosts);
+      .then(setPosts))
   }
 
   const getUserPosts = (id) => {
@@ -26,14 +32,16 @@ export const PostProvider = (props) => {
   }
 
   const addPost = (post) => {
-    return fetch("/api/post", {
+    return getToken().then((token) =>
+      fetch("/api/post", {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(post),
     })
-      .then((res) => res.json());
+      .then((res) => res.json()))
   }
 
   const updatePost = (post) => {
