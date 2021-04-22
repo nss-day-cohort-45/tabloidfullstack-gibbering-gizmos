@@ -41,5 +41,18 @@ namespace Tabloid.Controllers
             var profiles = _userProfileRepository.GetUserProfiles();
             return Ok(profiles);
         }
+
+        [HttpPut("DeactivateUserById/{id}")]
+        public IActionResult DeactivateUserById(int id)
+        {
+            _userProfileRepository.DeactivateUserById(id);
+            return NoContent();
+        }
+
+        [HttpGet("GetUserProfileById/{id}")]
+        public IActionResult GetUserProfileById(int id)
+        {
+            return Ok(_userProfileRepository.GetUserProfileById(id));
+        }
     }
 }
