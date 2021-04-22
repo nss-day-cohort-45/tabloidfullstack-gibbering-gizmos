@@ -18,6 +18,7 @@ import TagDelete from './tags/TagDelete';
 import TagForm from "./tags/TagForm";
 import TagEdit from "./tags/TagEdit";
 import PostTag from "./posts/PostTag";
+import UserProfiles from './userprofiles/UserProfiles';
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -91,6 +92,10 @@ export default function ApplicationViews() {
         
         <Route path={`/tagManager/:id`}>
             <PostTag />
+        </Route>
+
+        <Route path={`/userprofiles`}>
+            <UserProfiles/>
         </Route>
 
       </Switch>

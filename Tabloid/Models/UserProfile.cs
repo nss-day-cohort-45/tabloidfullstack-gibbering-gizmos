@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -46,5 +47,7 @@ namespace Tabloid.Models
                 return $"{FirstName} {LastName}";
             }
         }
+
+        public List<UserProfile> UserProfiles { get; set; }
     }
 }

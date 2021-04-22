@@ -9,19 +9,28 @@ export const CategoryProvider = (props) => {
   const { getToken } = useContext(UserProfileContext);
 
   const getAllCategories = () => {
-    return fetch("/api/category")
+    return getToken().then((token) => 
+      fetch("/api/category", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+      })
       .then((res) => res.json())
-      .then(setCategories);
+      .then(setCategories))
   }
 
   const addCategory = (category) => {
-    return fetch(apiUrl , {
+    return getToken().then((token) =>
+        fetch(apiUrl , {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,  
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(category),
-    });
+    }))
   };
 
   const updateCategory = (category) => {
@@ -48,7 +57,13 @@ export const CategoryProvider = (props) => {
 
   const getCategoryById = (id) => {
     return getToken().then((token) =>
-      fetch(`${apiUrl}/${id}`)
+      fetch(`${apiUrl}/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+      })
         .then((res) => res.json()))
   }
 

@@ -9,7 +9,14 @@ export const TagProvider = (props) => {
   const { getToken } = useContext(UserProfileContext);
 
   const getAllTags = () => {
-    return fetch(apiUrl).then((res) => res.json());
+    return getToken().then((token) =>
+      fetch(apiUrl, {
+        method: "GET",
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
+      })
+      .then((res) => res.json()))
   };
 
   const getTagById = (id) => {
@@ -35,13 +42,15 @@ export const TagProvider = (props) => {
   }
 
   const addTag = (tag) => {
-        return fetch(apiUrl, {
+    return getToken().then((token) =>
+            fetch(apiUrl, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,  
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(tag),
-        });
+        }))
   };
 
   const updateTag = (tag) => {
@@ -49,6 +58,7 @@ export const TagProvider = (props) => {
       fetch(`${apiUrl}/${tag.id}`, {
         method: "PUT",
         headers: {
+          Authorization: `Bearer ${token}`,  
           "Content-Type": "application/json"
         },
         body: JSON.stringify(tag)
