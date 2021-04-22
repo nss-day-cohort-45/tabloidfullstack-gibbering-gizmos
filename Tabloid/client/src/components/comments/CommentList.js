@@ -5,12 +5,12 @@ import { Button } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
 const CommentList = () => {
-  const { comments, getAllComments } = useContext(CommentContext);
+  const { comments, getAllCommentsOnPost } = useContext(CommentContext);
   const history = useHistory();
   const {postId} = useParams();
 
   useEffect(() => {
-    getAllComments(postId);
+    getAllCommentsOnPost(postId);
   }, []);
 
   const addCommentForm = () => {
@@ -19,7 +19,7 @@ const CommentList = () => {
 
   return (
     <div className="container">
-      <Link to={`/posts/${postId}`}>Back to Post</Link>
+      {/* <Link to={`/posts/${comment.postId}`}>Back to Post</Link> */}
       <div className="row justify-content-center">
         <div className="cards-column">
           {comments.map((comment) => (

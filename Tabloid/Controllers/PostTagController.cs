@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostTagController : ControllerBase
@@ -39,6 +41,14 @@ namespace Tabloid.Controllers
         public IActionResult GetTagsByPostId(int id)
         {
             var postTags = _postTagRepository.GetTagByPostId(id);
+            return Ok(postTags);
+
+        }
+
+        [HttpGet("GetPostTagById/{id}")]
+        public IActionResult GetPostTagById(int id)
+        {
+            var postTags = _postTagRepository.GetPostTagById(id);
             return Ok(postTags);
 
         }

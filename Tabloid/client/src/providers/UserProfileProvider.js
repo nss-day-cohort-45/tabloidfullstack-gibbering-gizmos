@@ -70,8 +70,20 @@ export function UserProfileProvider(props) {
       }).then(resp => resp.json()));
   };
 
+  const getAllProfiles = () => {
+    return getToken().then((token) => {
+      return fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => res.json())
+    })
+  }
+
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfile }}>
+    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfile, getAllProfiles }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark"/>}
