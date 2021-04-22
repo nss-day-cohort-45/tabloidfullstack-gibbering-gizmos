@@ -17,6 +17,7 @@ const UserProfiles = () => {
             <div className="row justify-content-center">
                 <table>
                     <tr>
+                        <th></th>
                         <th>Full Name</th>
                         <th>Display Name</th>
                         <th>User Type</th>
@@ -26,6 +27,11 @@ const UserProfiles = () => {
                             profiles.map(p => (
                                 
                                 <tr>
+                                    <td>
+                                        <Button onClick="">View</Button>
+                                        <Button hidden>Active</Button>
+                                        <Button hidden>Edit</Button>
+                                    </td>
                                     <td>{p.fullName}</td>
                                     <td>{p.displayName}</td>
                                     <td>{p.userType.name}</td>

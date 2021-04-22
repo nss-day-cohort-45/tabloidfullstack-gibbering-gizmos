@@ -19,6 +19,7 @@ import TagForm from "./tags/TagForm";
 import TagEdit from "./tags/TagEdit";
 import PostTag from "./posts/PostTag";
 import UserProfiles from './userprofiles/UserProfiles';
+import UserProfileDetails from "./userprofiles/UserProfileDetails";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -94,8 +95,12 @@ export default function ApplicationViews() {
             <PostTag />
         </Route>
 
-        <Route path={`/userprofiles`}>
+        <Route path={`/userprofiles`} exact>
             <UserProfiles/>
+        </Route>
+
+        <Route path={`/userprofiles/:id`}>
+          <UserProfileDetails />
         </Route>
 
       </Switch>
