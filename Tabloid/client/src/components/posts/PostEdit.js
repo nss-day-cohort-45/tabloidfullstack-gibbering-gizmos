@@ -102,6 +102,7 @@ const PostEdit = () => {
                         id="content"
                         onChange={(e) => setContent(e.target.value)}
                         value={content}
+                        rows="10"
                         />
                     </FormGroup>
                     <FormGroup>

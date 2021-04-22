@@ -75,7 +75,7 @@ const PostDetails = () => {
                         </h2>
                         <h6><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {new Date(post.publishDateTime).toLocaleString("en-US").split(', ')[0]}</h6>
                         
-                        <p>Tags: {postTags.map(pt => pt.name)}</p>
+                        <div>{postTags.map(pt => <Button key={pt.name} outline color="secondary" size="sm">{pt.name}</Button>)}</div>
                     </CardHeader>
                     <CardBody>
                         <CardImg src={post.imageLocation} alt="header"/>
@@ -103,7 +103,11 @@ const PostDetails = () => {
 
                     <h6><b>Author:</b> {post.userProfile.displayName} | <b>Category:</b> {post.category.name} | <b>Published:</b> {new Date(post.publishDateTime).toLocaleString("en-US").split(', ')[0]}</h6>
 
-                    <p>Tags: {postTags.map(pt => pt.name)}</p>
+                    <div>
+                        {postTags.map(pt => 
+                            <Button key={pt.name} outline color="secondary" size="sm">{pt.name}</Button>)
+                        }
+                    </div>
                 </CardHeader>
                 <CardBody>
                     <CardImg src={post.imageLocation} alt="header"/>
