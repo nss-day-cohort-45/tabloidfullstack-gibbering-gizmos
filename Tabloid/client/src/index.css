@@ -8,13 +8,31 @@ main {
   margin-top: -16px;
   margin-left: -16px;
 }
- 
+
 p {
-    line-height: 2rem;
+  line-height: 2rem;
 }
 
 .post p {
-    white-space: pre-wrap;
+  white-space: pre-wrap;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+  white-space: pre-wrap;
 }
 
 button.btn {

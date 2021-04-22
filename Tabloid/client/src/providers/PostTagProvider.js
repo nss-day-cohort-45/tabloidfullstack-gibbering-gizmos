@@ -34,13 +34,15 @@ const getPostTagById = (id) => {
   }
 
   const addPostTag = (postTag) => {
-    return fetch(apiUrl, {
+    return getToken().then((token) =>
+        fetch(apiUrl, {
         method: "POST",
         headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify(postTag),
-    });
+    }))
 };
 
 const getTagsByPostId = (id) => {
