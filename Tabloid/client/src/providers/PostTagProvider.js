@@ -8,12 +8,12 @@ export const PostTagProvider = (props) => {
 
     const apiUrl = '/api/PostTag'
 const {getToken} = useContext(UserProfileContext)
-
+const [lastPage, setLastPage] = useState(0);
 const [postTags, setPostTags] = useState([]);
 
 const getPostTagById = (id) => {
     return getToken().then((token) => {
-        return fetch(`${apiUrl}/${id}`, {
+        return fetch(`/api/PostTag/GetPostTagById/${id}`, {
           method: "GET",
           headers: {
               Authorization: `Bearer ${token}`,
@@ -57,7 +57,7 @@ const getTagsByPostId = (id) => {
 }
 
 return (
-    <PostTagContext.Provider value={{ postTags, setPostTags, addPostTag, deletePostTag, getPostTagById, getTagsByPostId }}>
+    <PostTagContext.Provider value={{ postTags, setPostTags, addPostTag, deletePostTag, getPostTagById, getTagsByPostId, lastPage, setLastPage }}>
         {props.children}
     </PostTagContext.Provider>
 );

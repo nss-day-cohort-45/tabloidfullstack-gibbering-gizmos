@@ -59,11 +59,11 @@ namespace Tabloid.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT *
-                    FROM Post p
-                    JOIN PostTag pt ON pt.PostId = p.id
+                    SELECT pt.id, pt.postId, pt.tagId, t.name
+                    FROM PostTag pt
+                    
                     JOIN Tag t ON t.Id = pt.TagId
-                    WHERE p.Id = @id";
+                    WHERE pt.postId = @id";
 
                     cmd.Parameters.AddWithValue("@id", postId);
 
@@ -83,6 +83,40 @@ namespace Tabloid.Repositories
                     }
                     reader.Close();
                     return postTags;
+                }
+            }
+        }
+
+        public PostTag GetPostTagById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT pt.id, pt.tagId, pt.postId, t.Name FROM PostTag pt 
+                    JOIN Tag t ON t.Id = pt.TagId
+                    WHERE pt.id = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    PostTag postTag = null;
+
+                    if (reader.Read())
+                    {
+                        postTag = new PostTag()
+                        {
+                            id = DbUtils.GetInt(reader, "Id"),
+                            Name = DbUtils.GetString(reader, "Name")
+                        };
+                    }
+
+                    reader.Close();
+                    return postTag;
                 }
             }
         }
