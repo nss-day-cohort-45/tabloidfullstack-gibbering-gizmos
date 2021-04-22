@@ -32,4 +32,9 @@ th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+  white-space: pre-wrap;
+}
+
+button.btn {
+  margin: 4px;
 }

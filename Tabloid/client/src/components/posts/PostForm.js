@@ -118,7 +118,7 @@ export const PostForm = () => {
         <FormGroup>
             <Label for="content">Content: </Label>
             <Input type="textarea" id="content" onChange={handleControlledInputChange} required autoFocus className="form-control"
-              placeholder="Content" value={post.content} />
+              placeholder="Content" value={post.content} rows="10" />
         </FormGroup>
         <FormGroup>
             <Label for="imageLocation">Image URL: </Label>
