@@ -30,5 +30,22 @@ namespace Tabloid.Controllers
             _commentRepository.AddComment(comment);
             return CreatedAtAction("Get", new { id = comment.Id }, comment);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Comment comment)
+        {
+            
+
+            _commentRepository.EditComment(comment);
+            return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var comment = _commentRepository.GetCommentById(id);
+
+            return Ok(comment);
+        }
     }
 }

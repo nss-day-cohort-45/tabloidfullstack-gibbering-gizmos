@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Models;
+using Tabloid.Utils;
 
 namespace Tabloid.Repositories
 {
@@ -78,6 +79,66 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@CreateDateTime", comment.CreateDateTime);
 
                     comment.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void EditComment(Comment comment)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE Comment
+                        SET Subject = @Subject,
+                            Content = @Content
+                            
+                    WHERE id = @id
+                    ";
+
+                    cmd.Parameters.AddWithValue("@Subject", comment.Subject);
+                    cmd.Parameters.AddWithValue("@Content", comment.Content);
+
+
+                    comment.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public Comment GetCommentById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                   SELECT c.id, c.subject, c.content
+                        FROM Comment c
+
+                        WHERE id = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    Comment comment = null;
+
+                    if (reader.Read())
+                    {
+                        comment = new Comment()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Subject = DbUtils.GetString(reader, "Subject"),
+                            Content = DbUtils.GetString(reader, "Content")
+                        };
+                    }
+
+                    reader.Close();
+                    return comment;
                 }
             }
         }
