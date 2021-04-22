@@ -39,6 +39,10 @@ const PostDetails = () => {
     const tagList = () => {
         history.push(`/tagManager/${post.id}`)
     }  
+
+    const commentList = () => {
+        history.push(`/comments/${post.id}`)
+    }
        
 
     const handleDeletePost = (postName) => {
@@ -71,6 +75,7 @@ const PostDetails = () => {
                 <CardFooter>   
                 <Button onClick={editPost}>Edit</Button>
                 <Button onClick={tagList}>Manage Tags</Button>
+                <Button onClick={commentList}>View Comments</Button>
                 <Button color="danger" onClick={() => handleDeletePost(post.title)}>
                         Delete
                     </Button>
@@ -93,6 +98,9 @@ const PostDetails = () => {
                 <img src={post.imageLocation} alt="header"/>
                 <p>{post.content}</p>
             </CardBody>
+            <CardFooter>
+            <Button onClick={commentList}>View Comments</Button>
+            </CardFooter>
         </Card>
     );
 };
