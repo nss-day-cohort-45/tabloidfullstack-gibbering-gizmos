@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
 
 const UserProfileDetails = () => {
     return (
@@ -26,6 +26,14 @@ const UserProfileDetails = () => {
                             <p>admin</p>
                         </Col>
                     </Row>
+                </Col>
+            </Row>
+            <Row>
+                <Col></Col>
+                <Col sm ="2" md="2" lg="2">
+                <div>
+                    <Button>Back</Button>
+                </div>
                 </Col>
             </Row>
         </div>
