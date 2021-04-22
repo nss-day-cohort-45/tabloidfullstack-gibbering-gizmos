@@ -18,6 +18,7 @@ import TagDelete from './tags/TagDelete';
 import TagForm from "./tags/TagForm";
 import TagEdit from "./tags/TagEdit";
 import PostTag from "./posts/PostTag";
+import PostTagDelete from "./posts/PostTagDelete";
 import UserProfiles from './userprofiles/UserProfiles';
 import UserDeactivate from './userprofiles/UserDeactivate'
 
@@ -88,15 +89,19 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path={`/tags/edit/:id`}>
-            <TagEdit />
+          <TagEdit />
         </Route>
-        
+
         <Route path={`/tagManager/:id`}>
-            <PostTag />
+          <PostTag />
+        </Route>
+
+        <Route path="/postTag/delete/:id">
+          <PostTagDelete />
         </Route>
 
         <Route path={`/userprofiles`}>
-            <UserProfiles/>
+          <UserProfiles />
         </Route>
 
         <Route path={`/deactivateuser/:id`}>
