@@ -16,3 +16,7 @@ p {
 .post p {
     white-space: pre-wrap;
 }
+
+button.btn {
+  margin: 4px;
+}
