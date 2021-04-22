@@ -20,7 +20,12 @@ namespace Tabloid.Controllers
         [HttpGet("{firebaseUserId}")]
         public IActionResult GetUserProfile(string firebaseUserId)
         {
-            return Ok(_userProfileRepository.GetByFirebaseUserId(firebaseUserId));
+            var profile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+            if (profile.Deactivated == true)
+            {
+                return NotFound();
+            }
+            return Ok(profile);
         }
 
         [HttpPost]

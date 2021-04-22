@@ -55,7 +55,15 @@ export function UserProfileProvider(props) {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      }).then(resp => resp.json()));
+      }).then(resp => { 
+        if(resp.ok)
+        {
+          return resp.json()
+        }
+        
+        throw new Error("Not valid")
+      })
+    )
   };
 
   const saveUser = (userProfile) => {
