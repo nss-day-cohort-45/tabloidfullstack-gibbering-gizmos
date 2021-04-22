@@ -36,6 +36,4 @@ export const CommentProvider = (props) => {
       {props.children}
     </CommentContext.Provider>
   )
-
-
 }

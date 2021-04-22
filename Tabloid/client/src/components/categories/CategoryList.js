@@ -20,7 +20,6 @@ const addCatForm = () => {
     <div className="container">
       <Button onClick={addCatForm}>Add Category</Button>
       <div className="row justify-content-center">
-      {/* <Button onClick={editPost}>Edit</Button> */}
         <div className="cards-column">
           {categories.map((category) => (
             <Category key={category.id} category={category} />
