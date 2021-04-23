@@ -25,6 +25,12 @@ namespace Tabloid.Utils
             return reader.GetString(ordinal);
         }
 
+
+        public static bool GetBoolean(SqlDataReader reader, string column)
+        {
+            return reader.GetBoolean(reader.GetOrdinal(column));
+        }
+
         /// <summary>
         ///  Get an int from a data reader object.
         ///  This method assumes the value is not NULL.
