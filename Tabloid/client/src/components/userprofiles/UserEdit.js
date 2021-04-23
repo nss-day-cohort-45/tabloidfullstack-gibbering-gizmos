@@ -56,7 +56,7 @@ const UserEdit = () => {
                 <CardBody>
                     <Form>
                     <FormGroup>
-                        User: {userProfile.displayName} <br></br>
+                        User: {userProfile.displayName}<br></br>
                         <Label for="userType">User Type: </Label>
                         <select id="category" onChange={(e) => setNewUserType(e.target.value)}>
                             <option value="0">Select a category </option>

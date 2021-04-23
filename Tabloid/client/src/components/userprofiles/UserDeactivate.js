@@ -13,16 +13,33 @@ import { useHistory, useParams } from "react-router-dom";
 
 const UserDeactivate = () => {
     const  { id } = useParams();
-    const {getUserProfileById, deactivateUserById} = useContext(UserProfileContext)
+    const {getUserProfileById, deactivateUserById, getAllProfiles} = useContext(UserProfileContext)
     const [userProfile, setUserProfile] = useState({})
+    const [userProfiles, setUserProfiles] = useState([])
     const history = useHistory();
 
     useEffect(() => {
-        getUserProfileById(id).then(setUserProfile)
+        getUserProfileById(id).then(setUserProfile).then(getAllProfiles).then(setUserProfiles)
     }, [])
 
     const submit = () => {
-        deactivateUserById(id).then(() => history.push(`/userprofiles`))
+        
+        const admins = userProfiles.filter(a => a.userTypeId === 1 && a.deactivated === false)
+        // const activeAdmins = admins.filter(a => a.deactivated === false)
+
+        if(admins > 1)
+        {
+            deactivateUserById(id).then(() => history.push(`/userprofiles`))
+        }
+        else if(userProfile.userTypeId === 2)
+        {
+            deactivateUserById(id).then(() => history.push(`/userprofiles`))
+        }
+        else
+        {
+            window.alert("You need to make someone else an admin before deactivating the only admin!")
+        }
+        
     }
 
     const cancel = () => {
