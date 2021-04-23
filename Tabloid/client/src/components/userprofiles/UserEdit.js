@@ -18,7 +18,7 @@ const UserEdit = () => {
     const { id } = useParams()
     const history = useHistory()
     const [userProfile, setUserProfile] = useState({})
-    const [userTypes, setUserTypes] = useState(0)
+    const [userTypes, setUserTypes] = useState([])
     const [newUserType, setNewUserType] = useState(0)
     
     useEffect(() => {
@@ -40,6 +40,11 @@ const UserEdit = () => {
           });
         
     };
+    const cancel = (e) => {
+        
+        history.push(`/userprofiles/`);
+        
+    };
 
 
     return (
@@ -49,6 +54,7 @@ const UserEdit = () => {
                 <CardBody>
                     <Form>
                     <FormGroup>
+                        User: {userProfile.displayName} <br></br>
                         <Label for="userType">User Type: </Label>
                         <select id="category" onChange={(e) => setNewUserType(e.target.value)}>
                             <option value="0">Select a category </option>
@@ -65,6 +71,9 @@ const UserEdit = () => {
                     </Form>
                     <Button color="info" onClick={submit}>
                     Save
+                    </Button>
+                    <Button color="info" onClick={cancel}>
+                    Cancel
                     </Button>
                 </CardBody>
                 </Card>
