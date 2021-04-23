@@ -18,8 +18,11 @@ import TagDelete from './tags/TagDelete';
 import TagForm from "./tags/TagForm";
 import TagEdit from "./tags/TagEdit";
 import PostTag from "./posts/PostTag";
+import CommentList from "./comments/CommentList";
+import PostTagDelete from "./posts/PostTagDelete";
 import UserProfiles from './userprofiles/UserProfiles';
 import UserProfileDetails from "./userprofiles/UserProfileDetails";
+import UserDeactivate from './userprofiles/UserDeactivate'
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -88,11 +91,15 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path={`/tags/edit/:id`}>
-            <TagEdit />
+          <TagEdit />
         </Route>
-        
+
         <Route path={`/tagManager/:id`}>
-            <PostTag />
+          <PostTag />
+        </Route>
+
+        <Route path="/postTag/delete/:id">
+          <PostTagDelete />
         </Route>
 
         <Route path={`/userprofiles`} exact>
@@ -103,6 +110,13 @@ export default function ApplicationViews() {
           <UserProfileDetails />
         </Route>
 
+        <Route path={`/comments/:id`}>
+            <CommentList />
+        </Route>
+
+        <Route path={`/deactivateuser/:id`}>
+            <UserDeactivate/>
+        </Route>
       </Switch>
     </main>
   );

@@ -55,7 +55,15 @@ export function UserProfileProvider(props) {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      }).then(resp => resp.json()));
+      }).then(resp => { 
+        if(resp.ok)
+        {
+          return resp.json()
+        }
+        
+        throw new Error("Not valid")
+      })
+    )
   };
 
   const saveUser = (userProfile) => {
@@ -82,18 +90,30 @@ export function UserProfileProvider(props) {
     })
   }
 
-  const getUserProfileById = (userId) => {
+  const deactivateUserById = (id) => {
     return getToken().then((token) =>
-      fetch(`${apiUrl}/GetUserById/${userId}`, {
+      fetch(`${apiUrl}/DeactivateUserById/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+    )
+  }
+
+  const getUserProfileById = (id) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/GetUserProfileById/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
         }
-      }).then(resp => resp.json()));
-  };
+      }).then((res) => res.json())
+    )
+  }
 
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfile, getAllProfiles, getUserProfileById }}>
+    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfile, getAllProfiles, deactivateUserById, getUserProfileById }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark"/>}
