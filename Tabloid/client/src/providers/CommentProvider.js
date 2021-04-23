@@ -6,6 +6,7 @@ export const CommentContext = React.createContext();
 export const CommentProvider = (props) => {
   const apiUrl = "/api/comment";
   const [comments, setComments] = useState([]);
+  const [postId, setPostId] = useState(0)
   const { getToken } = useContext(UserProfileContext);
 
   const getAllCommentsOnPost = (id) => {
@@ -44,7 +45,7 @@ export const CommentProvider = (props) => {
 
 
   return (
-    <CommentContext.Provider value={{ comments, setComments, getAllCommentsOnPost, addComment, deleteComment }}>
+    <CommentContext.Provider value={{ comments, setComments, postId, setPostId, getAllCommentsOnPost, addComment, deleteComment }}>
       {props.children}
     </CommentContext.Provider>
   )
