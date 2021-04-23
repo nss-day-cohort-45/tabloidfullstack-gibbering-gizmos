@@ -171,12 +171,12 @@ namespace Tabloid.Repositories
                             
                     WHERE id = @id
                     ";
-
+                    cmd.Parameters.AddWithValue("@id", comment.Id);
                     cmd.Parameters.AddWithValue("@Subject", comment.Subject);
                     cmd.Parameters.AddWithValue("@Content", comment.Content);
 
 
-                    comment.Id = (int)cmd.ExecuteScalar();
+                    cmd.ExecuteScalar();
                 }
             }
         }
