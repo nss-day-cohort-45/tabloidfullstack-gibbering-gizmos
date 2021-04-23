@@ -10,7 +10,7 @@ export const CommentProvider = (props) => {
 
   const getAllCommentsOnPost = (id) => {
     return getToken().then((token) =>
-    fetch(`/api/comment/${id}`, {
+    fetch(`/api/Comment/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

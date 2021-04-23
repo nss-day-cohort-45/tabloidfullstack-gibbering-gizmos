@@ -5,12 +5,13 @@ import { Button } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
 const CommentList = () => {
-  const { comments, getAllCommentsOnPost } = useContext(CommentContext);
+  const { comments, setComments, getAllCommentsOnPost } = useContext(CommentContext);
   const history = useHistory();
-  const {postId} = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    getAllCommentsOnPost(postId);
+    getAllCommentsOnPost(parseInt(id))
+    .then(setComments);
   }, []);
 
   const addCommentForm = () => {
