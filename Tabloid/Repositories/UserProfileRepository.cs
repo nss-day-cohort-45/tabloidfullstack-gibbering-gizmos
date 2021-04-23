@@ -200,6 +200,26 @@ namespace Tabloid.Repositories
             }
         }
 
+        public void ReactivateUserById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE UserProfile
+                        SET Deactivated = 0
+                    WHERE Id = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "id", id);
+
+                    cmd.ExecuteNonQuery();
+                };
+            }
+        }
+
         /*
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {

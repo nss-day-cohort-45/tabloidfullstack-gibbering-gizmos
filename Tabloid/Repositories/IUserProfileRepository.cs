@@ -10,5 +10,6 @@ namespace Tabloid.Repositories
         UserProfile GetByFirebaseUserId(string firebaseUserId);
         UserProfile GetUserProfileById(int id);
         List<UserProfile> GetUserProfiles();
+        void ReactivateUserById(int id);
     }
 }

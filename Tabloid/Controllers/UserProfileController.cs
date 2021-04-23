@@ -54,6 +54,13 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
+        [HttpPut("DeactivateUserById/{id}")]
+        public IActionResult ReactivateUserById(int id)
+        {
+            _userProfileRepository.ReactivateUserById(id);
+            return NoContent();
+        }
+
         [HttpGet("GetUserProfileById/{id}")]
         public IActionResult GetUserProfileById(int id)
         {
