@@ -57,8 +57,8 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("GetCommentById")]
+        public IActionResult GetCommentById(int id)
         {
             var comment = _commentRepository.GetCommentById(id);
 
