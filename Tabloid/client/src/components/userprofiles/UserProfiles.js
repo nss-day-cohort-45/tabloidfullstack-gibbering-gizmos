@@ -7,11 +7,12 @@ import { UserProfileContext } from "../../providers/UserProfileProvider";
 const UserProfiles = () => {
     const {getAllProfiles} = useContext(UserProfileContext);
     const [profiles, setProfiles] = useState([]);
+    const history = useHistory();
 
     useEffect(() => {
         getAllProfiles().then(setProfiles)
     }, []);
-
+    
     return (
         <div className="container pt-4">
             <div className="row justify-content-center">
@@ -28,7 +29,7 @@ const UserProfiles = () => {
                                 
                                 <tr>
                                     <td>
-                                        <Button onClick="">View</Button>
+                                        <Button value={p.fullName} onClick={() => history.push(`/userprofiles/${p.id}`)}>View</Button>
                                         <Button hidden>Active</Button>
                                         <Button hidden>Edit</Button>
                                     </td>
