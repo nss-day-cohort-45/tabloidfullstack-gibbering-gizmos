@@ -49,5 +49,7 @@ namespace Tabloid.Models
         }
 
         public List<UserProfile> UserProfiles { get; set; }
+
+        public bool Deactivated { get; set; }
     }
 }

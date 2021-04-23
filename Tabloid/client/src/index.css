@@ -31,10 +31,40 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: #ffffff;
   white-space: pre-wrap;
+}
+
+tr:nth-child(odd) {
+  background-color: #a54e8f;
+  white-space: pre-wrap;
+  color: #000000;
 }
 
 button.btn {
   margin: 4px;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(
+    to right top,
+    #d16ba5,
+    #c777b9,
+    #ba83ca,
+    #aa8fd8,
+    #9a9ae1,
+    #839fe3,
+    #6ca4e1,
+    #57a7dc,
+    #32a5ce,
+    #0ca2bb,
+    #039ea6,
+    #219890
+  );
 }
