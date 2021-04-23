@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Models;
+using Tabloid.Utils;
 
 namespace Tabloid.Repositories
 {
@@ -78,6 +80,25 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@CreateDateTime", comment.CreateDateTime);
 
                     comment.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void DeleteComment(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    DELETE From Comment
+                    WHERE Id = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
