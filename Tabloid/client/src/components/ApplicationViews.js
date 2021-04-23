@@ -21,6 +21,7 @@ import PostTag from "./posts/PostTag";
 import PostTagDelete from "./posts/PostTagDelete";
 import UserProfiles from './userprofiles/UserProfiles';
 import UserDeactivate from './userprofiles/UserDeactivate'
+import DeactivatedUsers from './userprofiles/DeactivatedUsers'
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -106,6 +107,10 @@ export default function ApplicationViews() {
 
         <Route path={`/deactivateuser/:id`}>
             <UserDeactivate/>
+        </Route>
+
+        <Route path={`/deactivatedusers`}>
+            <DeactivatedUsers/>
         </Route>
       </Switch>
     </main>

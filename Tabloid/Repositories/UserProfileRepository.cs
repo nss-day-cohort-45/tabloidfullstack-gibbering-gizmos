@@ -233,7 +233,7 @@ namespace Tabloid.Repositories
                               ut.[Name] AS UserTypeName
                         FROM UserProfile u
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                              WHERE u.Deactivated = 0
+                              WHERE u.Deactivated = 1
                               ORDER BY u.DisplayName ASC
                     ";
 
