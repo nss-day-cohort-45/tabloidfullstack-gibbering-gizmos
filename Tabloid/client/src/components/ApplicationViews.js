@@ -24,6 +24,7 @@ import UserProfiles from './userprofiles/UserProfiles';
 import UserProfileDetails from "./userprofiles/UserProfileDetails";
 import UserDeactivate from './userprofiles/UserDeactivate'
 import DeactivatedUsers from './userprofiles/DeactivatedUsers'
+import CommentForm from "./comments/CommentForm";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -111,8 +112,12 @@ export default function ApplicationViews() {
           <UserProfileDetails />
         </Route>
 
-        <Route path={`/comments/:id`}>
+        <Route path={`/comments/:id`} exact> 
             <CommentList />
+        </Route>
+
+        <Route path={`/addcomment`}>
+            <CommentForm />
         </Route>
 
         <Route path={`/deactivateuser/:id`}>

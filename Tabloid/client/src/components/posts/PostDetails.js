@@ -3,10 +3,12 @@ import { Card, CardBody, CardHeader, CardFooter, Button, CardImg } from "reactst
 import { PostContext } from '../../providers/PostProvider';
 import { useHistory, useParams } from "react-router-dom";
 import { PostTagContext } from "../../providers/PostTagProvider";
+import { CommentContext } from "../../providers/CommentProvider";
 
 
 const PostDetails = () => {
     const { getPostById, deletePost } = useContext(PostContext);
+    const { postId, setPostId } = useContext(CommentContext);
     const [ post, setPost ] = useState();
     const {id} = useParams();
     const history = useHistory();
@@ -21,6 +23,7 @@ const PostDetails = () => {
     useEffect(() => {
         getPostById(id)
         .then(setPost)
+        .then(setPostId(id))
         
     }, []);
     
@@ -55,6 +58,10 @@ const PostDetails = () => {
     const commentList = () => {
         history.push(`/comments/${post.id}`)
     }
+
+    const commentForm = () => {
+        history.push('/addcomment')
+    }
        
 
     const handleDeletePost = (postName) => {
@@ -88,6 +95,7 @@ const PostDetails = () => {
                     <CardFooter className="text-right">   
                     <Button onClick={editPost}>Edit</Button>
                     <Button onClick={commentList}>View Comments</Button>
+                    <Button onClick={commentForm}>Add Comment</Button>
                     <Button onClick={tagList}>Manage Tags</Button>
                     <Button color="danger" onClick={() => handleDeletePost(post.title)}>
                             Delete
@@ -120,6 +128,7 @@ const PostDetails = () => {
                 </CardBody>
                 <CardFooter>
                 <Button onClick={commentList}>View Comments</Button>
+                <Button onClick={commentForm}>Add Comment</Button>
                 </CardFooter>
             </Card>
         </div>
