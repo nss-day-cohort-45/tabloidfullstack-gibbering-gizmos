@@ -6,7 +6,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
@@ -54,10 +54,25 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
+        [HttpPut("ReactivateUserById/{id}")]
+        public IActionResult ReactivateUserById(int id)
+        {
+            _userProfileRepository.ReactivateUserById(id);
+            return NoContent();
+        }
+
+
         [HttpGet("GetUserProfileById/{id}")]
         public IActionResult GetUserProfileById(int id)
         {
             return Ok(_userProfileRepository.GetUserProfileById(id));
+        }
+
+        [HttpGet("GetDeactivatedUserProfiles")]
+        public IActionResult GetDeactivatedUserProfiles()
+        {
+            var profiles = _userProfileRepository.GetDeactivatedUserProfiles();
+            return Ok(profiles);
         }
     }
 }
