@@ -20,7 +20,12 @@ namespace Tabloid.Controllers
         [HttpGet("{firebaseUserId}")]
         public IActionResult GetUserProfile(string firebaseUserId)
         {
-            return Ok(_userProfileRepository.GetByFirebaseUserId(firebaseUserId));
+            var profile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+            if (profile.Deactivated == true)
+            {
+                return NotFound();
+            }
+            return Ok(profile);
         }
 
         [HttpPost]
@@ -40,6 +45,19 @@ namespace Tabloid.Controllers
         {
             var profiles = _userProfileRepository.GetUserProfiles();
             return Ok(profiles);
+        }
+
+        [HttpPut("DeactivateUserById/{id}")]
+        public IActionResult DeactivateUserById(int id)
+        {
+            _userProfileRepository.DeactivateUserById(id);
+            return NoContent();
+        }
+
+        [HttpGet("GetUserProfileById/{id}")]
+        public IActionResult GetUserProfileById(int id)
+        {
+            return Ok(_userProfileRepository.GetUserProfileById(id));
         }
     }
 }
