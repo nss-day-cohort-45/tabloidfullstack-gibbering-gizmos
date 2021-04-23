@@ -3,19 +3,17 @@ import { Button, Card, CardBody, CardFooter, CardHeader } from "reactstrap";
 import { Link, useHistory } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 
-
 const UserProfiles = () => {
     const {getAllProfiles, reactivateUserById} = useContext(UserProfileContext);
     const [profiles, setProfiles] = useState([]);
     const history = useHistory();
 
     useEffect(() => {
-        getAllProfiles().then(setProfiles)
+        getAllProfiles().then(setProfiles);
     }, []);
 
-
     const deactivate = (id) => {
-        history.push(`/deactivateuser/${id}`)
+        history.push(`/deactivateuser/${id}`);
     };
 
     const reactivate = (id) => {
@@ -39,7 +37,7 @@ const UserProfiles = () => {
                             <th>Full Name</th>
                             <th>Display Name</th>
                             <th>User Type</th>
-                            <th>Activation</th>
+                            <th>Actions</th>
                         </tr>
                             {
                                 profiles.map(p => {
@@ -50,6 +48,16 @@ const UserProfiles = () => {
                                         <td>{p.displayName}</td>
                                         <td>{p.userType.name}</td>
                                         <td>
+                                        <Button
+                                        value={p.fullName}
+                                        onClick={() =>
+                                            history.push(
+                                                `/userprofiles/${p.id}`
+                                            )
+                                        }
+                                    >
+                                        View
+                                    </Button>
                                             <Button color="danger" onClick={() => deactivate(p.id)}>Deactivate</Button>
                                         </td>
                                     </tr>
@@ -61,6 +69,16 @@ const UserProfiles = () => {
                                         <td>{p.displayName}</td>
                                         <td>{p.userType.name}</td>
                                         <td>
+                                        <Button
+                                        value={p.fullName}
+                                        onClick={() =>
+                                            history.push(
+                                                `/userprofiles/${p.id}`
+                                            )
+                                        }
+                                    >
+                                        View
+                                    </Button>
                                             <Button color="success" onClick={() => reactivate(p.id)}>Reactivate</Button>
                                         </td>
                                     </tr>

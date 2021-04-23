@@ -21,6 +21,7 @@ import PostTag from "./posts/PostTag";
 import CommentList from "./comments/CommentList";
 import PostTagDelete from "./posts/PostTagDelete";
 import UserProfiles from './userprofiles/UserProfiles';
+import UserProfileDetails from "./userprofiles/UserProfileDetails";
 import UserDeactivate from './userprofiles/UserDeactivate'
 import DeactivatedUsers from './userprofiles/DeactivatedUsers'
 
@@ -102,8 +103,12 @@ export default function ApplicationViews() {
           <PostTagDelete />
         </Route>
 
-        <Route path={`/userprofiles`}>
-          <UserProfiles />
+        <Route path={`/userprofiles`} exact>
+            <UserProfiles/>
+        </Route>
+
+        <Route path={`/userprofiles/:id`}>
+          <UserProfileDetails />
         </Route>
 
         <Route path={`/comments/:id`}>
