@@ -1,43 +1,84 @@
-import React from "react";
-import { Button, Col, Row } from "reactstrap";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router";
+import { Button, Card, CardBody, CardFooter, Col, Row } from "reactstrap";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
+import Portrait_Placeholder from "./Portrait_Placeholder.png"
 
 const UserProfileDetails = () => {
+    const { getUserProfileById } = useContext(UserProfileContext);
+    const [profile, setProfile] = useState([]);
+    const { id } = useParams();
+    const history = useHistory();
+
+    useEffect(() => {
+        getUserProfileById(id).then(setProfile);
+    }, []);
+
+    const UserImage = () => {
+        if (profile.imageLocation !== null) {
+            return profile.imageLocation;
+        } else {
+            return Portrait_Placeholder;
+        }
+    };
+
     return (
         <div className="container">
-            <Row>
-                <Col sm ="5" md="4" lg="3">
-                    <img src="https://robohash.org/numquamutut.png?size=150x150&set=set1" className="img-thumbnail"/>
-                </Col>
-                <Col>
-                    <h2>Foo</h2>
-                    <h5>Foo	Barington</h5>
-                    <br/>
+            <Card>
+                <CardBody>
                     <Row>
-                        <Col md="3" lg="3" >
-                            <h5>Email:</h5>
-                            <p>foo@bar.com</p>
+                        <Col sm="5" md="4" lg="3">
+                            <img
+                                src={UserImage()}
+                                className="img-thumbnail"
+                                style={{width: "160px"}}
+                            />
                         </Col>
-                        <Col md="5" lg="4">
-                            <h5>Account Created:</h5>
-                            <p>2020-04-23</p>
-                        </Col>
-                        <Col md="2" lg="3">
-                            <h5>Role:</h5>
-                            <p>admin</p>
+                        <Col>
+                            <h2>{profile.displayName}</h2>
+                            <h5>{profile.fullName}</h5>
+                            <br />
+                            <Row>
+                                <Col lg="6">
+                                    <h5>Email:</h5>
+                                    <p>{profile.email}</p>
+                                </Col>
+                                <Col md="6" lg="4">
+                                    <h5>Account Created:</h5>
+                                    <p>
+                                        {
+                                            new Date(profile.createDateTime)
+                                                .toLocaleString("en-US")
+                                                .split(", ")[0]
+                                        }
+                                    </p>
+                                </Col>
+                                <Col md="3" lg="2">
+                                    <h5>Role:</h5>
+                                    <p>{profile.userType?.name}</p>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
-                </Col>
-            </Row>
-            <Row>
-                <Col></Col>
-                <Col sm ="2" md="2" lg="2">
-                <div>
-                    <Button>Back</Button>
-                </div>
-                </Col>
-            </Row>
+                </CardBody>
+                <CardFooter>
+                    <Row>
+                        <Col>
+                            <div style={{ float: "right" }}>
+                                <Button
+                                    onClick={() =>
+                                        history.push(`/userprofiles`)
+                                    }
+                                >
+                                    Back
+                                </Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </CardFooter>
+            </Card>
         </div>
-    )
-}
+    );
+};
 
 export default UserProfileDetails;
