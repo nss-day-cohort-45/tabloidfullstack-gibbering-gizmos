@@ -200,6 +200,77 @@ namespace Tabloid.Repositories
             }
         }
 
+        public void ReactivateUserById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE UserProfile
+                        SET Deactivated = 0
+                    WHERE Id = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "id", id);
+
+                    cmd.ExecuteNonQuery();
+                };
+            }
+        }
+
+        public List<UserProfile> GetDeactivatedUserProfiles()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT u.id, u.FirstName, u.LastName, u.DisplayName, u.Email,
+                              u.CreateDateTime, u.ImageLocation, u.UserTypeId, u.Deactivated,
+                              ut.[Name] AS UserTypeName
+                        FROM UserProfile u
+                              LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                              WHERE u.Deactivated = 1
+                              ORDER BY u.DisplayName ASC
+                    ";
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    List<UserProfile> profiles = new List<UserProfile>();
+
+                    while (reader.Read())
+                    {
+                        UserProfile profile = new UserProfile
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                            LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                            DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            ImageLocation = reader.IsDBNull(reader.GetOrdinal("ImageLocation"))
+                            ? null
+                            : reader.GetString(reader.GetOrdinal("ImageLocation")),
+                            UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                            Deactivated = reader.GetBoolean(reader.GetOrdinal("Deactivated")),
+                            UserType = new UserType()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                                Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
+                            },
+                        };
+
+                        profiles.Add(profile);
+                    }
+
+                    reader.Close();
+                    return profiles;
+                }
+            }
+        }
+
         /*
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {
