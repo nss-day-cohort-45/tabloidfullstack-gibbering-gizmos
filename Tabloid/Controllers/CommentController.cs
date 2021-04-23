@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using Tabloid.Models;
 using Tabloid.Repositories;
@@ -47,7 +48,7 @@ namespace Tabloid.Controllers
             _commentRepository.DeleteComment(id);
             return NoContent();
         }
-
+        
         [HttpPut("{id}")]
         public IActionResult Put(int id, Comment comment)
         {
@@ -57,7 +58,7 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
-        [HttpGet("GetCommentById")]
+        [HttpGet("GetCommentById/{id}")]
         public IActionResult GetCommentById(int id)
         {
             var comment = _commentRepository.GetCommentById(id);
