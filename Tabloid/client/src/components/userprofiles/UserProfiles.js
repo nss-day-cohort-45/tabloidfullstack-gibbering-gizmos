@@ -58,6 +58,8 @@ const UserProfiles = () => {
                                     >
                                         View
                                     </Button>
+
+                                            <Button onClick={() => history.push(`/userprofiles/edit/${p.id}`)}>Edit</Button>
                                             <Button color="danger" onClick={() => deactivate(p.id)}>Deactivate</Button>
                                         </td>
                                     </tr>
@@ -79,6 +81,7 @@ const UserProfiles = () => {
                                     >
                                         View
                                     </Button>
+                                            <Button onClick={() => history.push(`/userprofiles/edit/${p.id}`)}>Edit</Button>
                                             <Button color="success" onClick={() => reactivate(p.id)}>Reactivate</Button>
                                         </td>
                                     </tr>
