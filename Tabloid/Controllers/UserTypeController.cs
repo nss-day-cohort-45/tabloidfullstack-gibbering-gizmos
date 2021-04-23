@@ -22,11 +22,18 @@ namespace Tabloid.Controllers
             _userTypeRepository = userTypeRepository;
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}/{userTypeId}")]
         public IActionResult Put(int id, int userTypeId)
         {
             _userTypeRepository.UpdateUserTypeById(id, userTypeId);
             return NoContent();
+        }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            var userTypes = _userTypeRepository.GetAllUserTypes();
+            return Ok(userTypes);
         }
     }
 }

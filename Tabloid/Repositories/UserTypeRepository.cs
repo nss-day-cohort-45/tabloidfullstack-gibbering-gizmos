@@ -30,5 +30,34 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        public List<UserType> GetAllUserTypes()
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT Id, Name FROM UserType
+                    ";
+
+                    var reader = cmd.ExecuteReader();
+                    var userTypes = new List<UserType>();
+
+                    while(reader.Read())
+                    {
+                        userTypes.Add(new UserType()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                        });
+                    }
+
+                    reader.Close();
+                    return userTypes;
+                }
+            }
+        }
     }
 }
