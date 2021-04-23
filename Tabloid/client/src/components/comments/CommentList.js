@@ -9,6 +9,7 @@ const CommentList = () => {
   const history = useHistory();
   const { id } = useParams();
 
+  // The "id" here is the post id from post details. The variable has to be called "id", so it's a bit confusing. NOT the comment id.
   useEffect(() => {
     getAllCommentsOnPost(parseInt(id))
     .then(setComments);
