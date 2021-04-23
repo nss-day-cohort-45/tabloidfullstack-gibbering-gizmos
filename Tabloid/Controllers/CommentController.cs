@@ -23,12 +23,29 @@ namespace Tabloid.Controllers
             return Ok(comments);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var comments = _commentRepository.GetCommentsByPostId(id);
+
+
+            return Ok(comments);
+
+        }
+
         [HttpPost]
         public IActionResult Post(Comment comment)
         {
             comment.CreateDateTime = DateTime.Now;
             _commentRepository.AddComment(comment);
             return CreatedAtAction("Get", new { id = comment.Id }, comment);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _commentRepository.DeleteComment(id);
+            return NoContent();
         }
 
         [HttpPut("{id}")]
