@@ -13,24 +13,26 @@ import {UserProfileContext} from '../../providers/UserProfileProvider'
 import {UserTypeContext} from '../../providers/UserTypeProvider'
 
 const UserEdit = () => {
-    const {getUserProfileById} = useContext(UserProfileContext)
+    const {getUserProfileById, getAllProfiles} = useContext(UserProfileContext)
     const {getAllUserTypes, updateUserType} = useContext(UserTypeContext)
     const { id } = useParams()
     const history = useHistory()
     const [userProfile, setUserProfile] = useState({})
     const [userTypes, setUserTypes] = useState([])
     const [newUserType, setNewUserType] = useState(0)
+    const [allProfiles, setAllProfiles] = useState([])
     
     useEffect(() => {
         getUserProfileById(id)
             .then(setUserProfile)
             .then(getAllUserTypes)
             .then(setUserTypes)
+            .then(getAllProfiles)
+            .then(setAllProfiles)
     }, [])
 
     const submit = (e) => {
-        
-          
+                  
         userProfile.userTypeId = newUserType
           
           // Update the database with the new post
