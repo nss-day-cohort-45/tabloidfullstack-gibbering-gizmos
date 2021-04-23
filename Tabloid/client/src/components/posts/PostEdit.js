@@ -127,14 +127,7 @@ const PostEdit = () => {
                             }
                         </select>
                     </FormGroup>
-                    <FormGroup>
-                        <Label for="tag">Tag</Label>
-                        <Input
-                        id="tag"
-                        onChange={(e) => setTag(e.target.value)}
-                        value={tag}
-                        />
-                    </FormGroup>
+                    
                     </Form>
                     <Button color="info" onClick={submit}>
                     SUBMIT

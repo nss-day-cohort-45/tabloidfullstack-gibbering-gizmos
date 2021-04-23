@@ -16,16 +16,17 @@ namespace Tabloid.Controllers
     public class PostTagController : ControllerBase
     {
         private readonly IPostTagRepository _postTagRepository;
-
-        public PostTagController(IPostTagRepository postTagRepository)
+        private readonly IUserProfileRepository _userProfileRepository;
+        public PostTagController(IPostTagRepository postTagRepository, IUserProfileRepository userProfileRepository)
         {
             _postTagRepository = postTagRepository;
-
+            _userProfileRepository = userProfileRepository;
         }
         [HttpPost]
 
         public IActionResult Post(PostTag postTag)
         {
+
             _postTagRepository.InsertTag(postTag);
             return NoContent();
         }

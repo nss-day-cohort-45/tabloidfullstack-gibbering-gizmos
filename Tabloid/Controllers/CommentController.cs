@@ -1,19 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Claims;
 using Tabloid.Models;
 using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase
     {
+        private readonly IUserProfileRepository _userProfileRepository;
         private readonly ICommentRepository _commentRepository;
-        public CommentController(ICommentRepository commentRepository) 
+        public CommentController(ICommentRepository commentRepository, IUserProfileRepository userProfileRepository) 
         {
             _commentRepository = commentRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         [HttpGet]
@@ -52,7 +56,11 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Comment comment)
         {
-            
+            var currentUserProfile = GetCurrentUserProfile();
+            if (currentUserProfile.Id != comment.UserProfileId)
+            {
+                return Unauthorized();
+            }
 
             _commentRepository.EditComment(comment);
             return NoContent();
@@ -64,6 +72,12 @@ namespace Tabloid.Controllers
             var comment = _commentRepository.GetCommentById(id);
 
             return Ok(comment);
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }

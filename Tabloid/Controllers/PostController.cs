@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Claims;
 using Tabloid.Models;
 using Tabloid.Repositories;
+
 
 namespace Tabloid.Controllers
 {
@@ -11,13 +13,13 @@ namespace Tabloid.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
-       
 
+        private readonly IUserProfileRepository _userProfileRepository;
         private readonly IPostRepository _postRepository;
-        public PostController(IPostRepository postRepository)
+        public PostController(IPostRepository postRepository, IUserProfileRepository userProfileRepository)
         {
             _postRepository = postRepository;
-            
+            _userProfileRepository = userProfileRepository;
         }
 
         [HttpGet]
@@ -51,10 +53,12 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         {
-            //if(id != post.UserProfileId)
-            //{
-            //    return BadRequest();
-            //}
+            var currentUserProfile = GetCurrentUserProfile();
+            if (currentUserProfile.Id != post.UserProfileId)
+            {
+                return Unauthorized();
+            }
+            
 
             _postRepository.UpdatePost(post);
             return NoContent();
@@ -75,5 +79,10 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
     }
 }
