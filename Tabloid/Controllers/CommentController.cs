@@ -23,6 +23,16 @@ namespace Tabloid.Controllers
             return Ok(comments);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var comments = _commentRepository.GetCommentsByPostId(id);
+
+
+            return Ok(comments);
+
+        }
+
         [HttpPost]
         public IActionResult Post(Comment comment)
         {
