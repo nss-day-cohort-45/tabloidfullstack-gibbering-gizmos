@@ -5,23 +5,21 @@ import { Button } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
 const CommentList = () => {
-  const { comments, setComments, getAllCommentsOnPost } = useContext(CommentContext);
+  const { comments, setComments, getAllCommentsOnPost} = useContext(CommentContext);
   const history = useHistory();
   const { id } = useParams();
 
   // The "id" here is the post id from post details. The variable has to be called "id", so it's a bit confusing. NOT the comment id.
   useEffect(() => {
     getAllCommentsOnPost(parseInt(id))
-    .then(setComments);
+    .then(setComments)
+    .then(console.log(comments))
   }, []);
 
-  const addCommentForm = () => {
-    history.push('comments/add');
-  }
 
   return (
     <div className="container">
-      {/* <Link to={`/posts/${comment.postId}`}>Back to Post</Link> */}
+      <Link to={`/posts/${id}`}>Back to Post</Link>
       <div className="row justify-content-center">
         <div className="cards-column">
           {comments.map((comment) => (
