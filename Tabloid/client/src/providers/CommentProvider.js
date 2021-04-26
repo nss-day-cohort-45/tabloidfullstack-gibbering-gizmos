@@ -52,9 +52,9 @@ export const CommentProvider = (props) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(comment),
-    })
-    .then((res) => res.json()));
+      body: JSON.stringify(comment)
+    }))
+  
   }
 
   return (

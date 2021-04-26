@@ -34,7 +34,7 @@ const CommentEdit = () => {
             .then(getAllComments)
     }, []);
 
-    // Once the post has been set in state, update the form with previous post info
+    // Once the comment has been set in state, update the form with previous post info
     useEffect(() => {
 
         setSubject(comment.subject)
