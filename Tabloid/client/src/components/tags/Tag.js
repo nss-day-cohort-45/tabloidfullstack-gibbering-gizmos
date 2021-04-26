@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardBody, CardFooter } from "reactstrap";
+import { Button, Card, CardBody, CardFooter, Col } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 const Tag = ({tag}) => {
@@ -15,15 +15,17 @@ const Tag = ({tag}) => {
   }
 
   return (
-    <Card className="m-4">
-      <CardBody>
-        <p>{tag.name}</p>
-      </CardBody>
-      <CardFooter>
-        <Button color="info" onClick={edit}>Edit</Button>
-        <Button color="danger" onClick={deleteTag}>Delete</Button>
-      </CardFooter>
-    </Card>
+    <Col md="6" lg="4">
+      <Card className="m-4">
+        <CardBody>
+          <p>{tag.name}</p>
+        </CardBody>
+        <CardFooter>
+          <Button color="info" onClick={edit}>Edit</Button>
+          <Button color="danger" onClick={deleteTag}>Delete</Button>
+        </CardFooter>
+      </Card>
+    </Col>
   );
 }  
 

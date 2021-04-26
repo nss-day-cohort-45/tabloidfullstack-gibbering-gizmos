@@ -45,6 +45,11 @@ button.btn {
   margin: 4px;
 }
 
+a.postLink {
+  text-decoration: none;
+  color: #000000;
+}
+
 html {
   min-height: 100%;
 }
