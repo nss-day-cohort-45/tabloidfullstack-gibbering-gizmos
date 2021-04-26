@@ -25,6 +25,7 @@ export const CommentProvider = (props) => {
     fetch(`${apiUrl}`, {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(comment),
@@ -32,8 +33,32 @@ export const CommentProvider = (props) => {
     .then((res) => res.json()));
   }
 
+  const getCommentById = (id) => {
+    return getToken().then((token) =>
+    fetch(`/api/Comment/GetCommentById/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+      .then((res) => res.json()));
+  }  
+
+  const updateComment = (comment) => {
+    return getToken().then((token) => 
+    fetch(`/api/Comment/${comment.id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comment)
+    }))
+  
+  }
+
   return (
-    <CommentContext.Provider value={{ comments, setComments, postId, setPostId, getAllCommentsOnPost, addComment }}>
+    <CommentContext.Provider value={{ comments, setComments, postId, setPostId, getAllCommentsOnPost, addComment, getCommentById, updateComment }}>
       {props.children}
     </CommentContext.Provider>
   )
