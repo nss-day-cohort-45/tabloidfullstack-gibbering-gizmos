@@ -8,12 +8,7 @@ const CommentDelete = () => {
   const { id } = useParams();
   const [comment, setComment] = useState({});
   const history = useHistory();
-  const { deleteComment, getCommentById, getAllCommentsOnPost } = useContext(CommentContext)
-
-  // This is returning JSON
-  const userProfile = sessionStorage.getItem("userProfile");
-  // Parsing the JSON returned above into an object so we can use it
-  var currentUser = JSON.parse(userProfile) //use this for admin check later
+  const { deleteComment, getCommentById, getAllCommentsOnPost, postId } = useContext(CommentContext)
 
   useEffect(() => {
     getCommentById(id).then(setComment)
@@ -22,7 +17,7 @@ const CommentDelete = () => {
   const deleteIt = () => {
     deleteComment(id)
       .then(getAllCommentsOnPost())
-      .then(history.push(`/comments/${id}`))
+      .then(history.push(`/comments/${postId}`))
   }
 
   const cancelIt = () => {

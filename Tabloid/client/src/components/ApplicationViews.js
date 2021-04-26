@@ -26,6 +26,7 @@ import UserDeactivate from './userprofiles/UserDeactivate'
 import DeactivatedUsers from './userprofiles/DeactivatedUsers'
 import CommentForm from "./comments/CommentForm";
 import CommentEdit from "./comments/CommentEdit";
+import CommentDelete from "./comments/CommentDelete";
 import UserEdit from './userprofiles/UserEdit';
 
 
@@ -108,35 +109,39 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path={`/userprofiles`} exact>
-            <UserProfiles/>
+          <UserProfiles />
         </Route>
 
         <Route path={`/userprofiles/:id`} exact>
           <UserProfileDetails />
         </Route>
 
-        <Route path={`/comments/:id`} exact> 
-            <CommentList />
+        <Route path={`/comments/:id`} exact>
+          <CommentList />
         </Route>
-        
-        <Route path={`/comment/edit/:id`} exact> 
-            <CommentEdit />
+
+        <Route path={`/comment/edit/:id`} exact>
+          <CommentEdit />
+        </Route>
+
+        <Route path={`/comment/delete/:id`} exact>
+          <CommentDelete />
         </Route>
 
         <Route path={`/addcomment`}>
-            <CommentForm />
+          <CommentForm />
         </Route>
 
         <Route path={`/deactivateuser/:id`}>
-            <UserDeactivate/>
+          <UserDeactivate />
         </Route>
 
         <Route path={`/deactivatedusers`}>
-            <DeactivatedUsers/>
+          <DeactivatedUsers />
         </Route>
 
         <Route path={`/userprofiles/edit/:id`}>
-          <UserEdit/>
+          <UserEdit />
         </Route>
 
       </Switch>
