@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { TagContext } from "../../providers/TagProvider";
 import Tag from "./Tag";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, CardDeck } from "reactstrap";
 import { useHistory } from "react-router";
 
 const TagList = () => {
@@ -21,11 +21,11 @@ const TagList = () => {
         <div className="container">
             <Button onClick={handleAddTagButton}>Add Tag</Button>
             <div className="row justify-content-center">
-                <div className="cards-column">
+                <CardDeck>
                     {tags.map((tag) => (
                         <Tag key={tag.id} tag={tag} />
                     ))}
-                </div>
+                </CardDeck>
             </div>
         </div>
     );
