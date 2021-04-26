@@ -7,12 +7,16 @@ const Comment = ({ comment }) => {
   const history = useHistory();
   const userProfile = sessionStorage.getItem("userProfile");
   var currentUser = JSON.parse(userProfile);
-  
+
 
 
   const editComment = () => {
-    
+
     history.push(`/comment/edit/${comment.id}`);
+  };
+
+  const deleteComment = () => {
+    history.push(`/comment/delete/${comment.id}`);
   };
 
   if (currentUser.id === comment.userProfileId) {
@@ -26,6 +30,7 @@ const Comment = ({ comment }) => {
           <p>{new Date(comment.createDateTime).toLocaleString("en-US").split(', ')[0]}</p>
         </CardBody>
         <Button onClick={editComment}>Edit</Button>
+        <Button onClick={deleteComment}>Delete</Button>
       </Card>
     )
   } else {
