@@ -189,7 +189,7 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                   SELECT c.id, c.subject, c.content
+                   SELECT c.id, c.subject, c.content, c.postId
                         FROM Comment c
 
                         WHERE id = @id
@@ -207,7 +207,8 @@ namespace Tabloid.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Subject = DbUtils.GetString(reader, "Subject"),
-                            Content = DbUtils.GetString(reader, "Content")
+                            Content = DbUtils.GetString(reader, "Content"),
+                            PostId = DbUtils.GetInt(reader, "postId")
                         };
                     }
 

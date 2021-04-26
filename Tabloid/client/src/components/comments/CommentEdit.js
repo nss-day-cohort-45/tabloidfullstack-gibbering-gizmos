@@ -19,7 +19,7 @@ const CommentEdit = () => {
     const { id } = useParams();
     const [comment, setComment] = useState({});
     const history = useHistory();
-
+    
     // form field states
     const [subject, setSubject] = useState("");
     const [content, setContent] = useState("");
@@ -47,17 +47,19 @@ const CommentEdit = () => {
         const updatedComment = {
             ...comment
         };
-
+        console.log(comment.postId)
         updatedComment.subject = subject
         updatedComment.content = content
 
         updateComment(updatedComment).then((c) => {
             // Navigate the user back to the home route
-            history.push(`/comments/${postId}`);
+            
+            history.push(`/comments/${comment.postId}`);
+            
         });
     }
     const cancel = () => {
-        history.push(`/categories`);
+        history.push(`/comments/${comment.postId}`);
     };
 
     if (comment === null) {

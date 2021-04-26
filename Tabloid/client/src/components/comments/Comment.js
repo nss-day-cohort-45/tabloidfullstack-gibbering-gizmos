@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Card, CardBody, CardFooter } from "reactstrap";
 import { useHistory } from "react-router-dom";
+
 
 const Comment = ({ comment }) => {
   const history = useHistory();
   const userProfile = sessionStorage.getItem("userProfile");
   var currentUser = JSON.parse(userProfile);
+  
 
 
   const editComment = () => {
+    
     history.push(`/comment/edit/${comment.id}`);
   };
 
