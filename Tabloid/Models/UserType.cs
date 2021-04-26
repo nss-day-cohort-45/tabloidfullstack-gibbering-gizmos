@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Tabloid.Models
 {
@@ -12,5 +13,7 @@ namespace Tabloid.Models
 
         public static int ADMIN_ID => 1;
         public static int AUTHOR_ID => 2;
+
+        public List<UserType> userTypes { get; set; }
     }
 }

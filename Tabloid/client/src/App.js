@@ -8,7 +8,7 @@ import { CategoryProvider } from './providers/CategoryProvider';
 import { TagProvider } from './providers/TagProvider';
 import { PostTagProvider } from './providers/PostTagProvider';
 import { CommentProvider } from './providers/CommentProvider';
-
+import { UserTypeProvider} from './providers/UserTypeProvider'
 
 function App() {
   return (
@@ -19,8 +19,10 @@ function App() {
             <TagProvider>
               <PostTagProvider>
                 <CommentProvider>
-                  <Header />
-                  <ApplicationViews />
+                  <UserTypeProvider>
+                    <Header />
+                    <ApplicationViews />
+                  </UserTypeProvider>
                 </CommentProvider>
               </PostTagProvider>
             </TagProvider>

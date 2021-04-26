@@ -33,17 +33,20 @@ const UserProfiles = () => {
             <div className="container pt-4">
                 <div className="row justify-content-center">
                     <table>
-                        <tr>
-                            <th>Full Name</th>
-                            <th>Display Name</th>
-                            <th>User Type</th>
-                            <th>Actions</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Display Name</th>
+                                <th>User Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {
                                 profiles.map(p => {
                                     return p.deactivated === false ?
                                     
-                                    <tr>
+                                    <tr key={p.id}>
                                         <td>{p.fullName}</td>
                                         <td>{p.displayName}</td>
                                         <td>{p.userType.name}</td>
@@ -58,6 +61,8 @@ const UserProfiles = () => {
                                     >
                                         View
                                     </Button>
+
+                                            <Button onClick={() => history.push(`/userprofiles/edit/${p.id}`)}>Edit</Button>
                                             <Button color="danger" onClick={() => deactivate(p.id)}>Deactivate</Button>
                                         </td>
                                     </tr>
@@ -79,12 +84,14 @@ const UserProfiles = () => {
                                     >
                                         View
                                     </Button>
+                                            <Button onClick={() => history.push(`/userprofiles/edit/${p.id}`)}>Edit</Button>
                                             <Button color="success" onClick={() => reactivate(p.id)}>Reactivate</Button>
                                         </td>
                                     </tr>
 
                                 })
                             }
+                        </tbody>
                             
                     </table>
                 </div>

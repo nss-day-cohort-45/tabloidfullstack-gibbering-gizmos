@@ -156,5 +156,66 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        public void EditComment(Comment comment)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE Comment
+                        SET Subject = @Subject,
+                            Content = @Content
+                            
+                    WHERE id = @id
+                    ";
+                    cmd.Parameters.AddWithValue("@id", comment.Id);
+                    cmd.Parameters.AddWithValue("@Subject", comment.Subject);
+                    cmd.Parameters.AddWithValue("@Content", comment.Content);
+
+
+                    cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public Comment GetCommentById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                   SELECT c.id, c.subject, c.content, c.postId
+                        FROM Comment c
+
+                        WHERE id = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    Comment comment = null;
+
+                    if (reader.Read())
+                    {
+                        comment = new Comment()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Subject = DbUtils.GetString(reader, "Subject"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            PostId = DbUtils.GetInt(reader, "postId")
+                        };
+                    }
+
+                    reader.Close();
+                    return comment;
+                }
+            }
+        }
     }
 }

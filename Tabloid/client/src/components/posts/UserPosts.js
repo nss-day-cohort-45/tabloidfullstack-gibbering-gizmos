@@ -16,7 +16,7 @@ const UserPosts = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-sm-12 col-lg-6">
+        <div className="cards-column">
           {
             userPosts ?
               userPosts.map(post => {
