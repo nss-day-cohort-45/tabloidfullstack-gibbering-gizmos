@@ -18,7 +18,14 @@ const PostEdit = () => {
     const { updatePost, getPostById } = useContext(PostContext) // Grabbing PostContext to gain access to the updatePost and getPostById methods
     const { getAllCategories, categories } = useContext(CategoryContext)
     const { id } = useParams(); // Grabbing the ID with params
-    const [post, setPost] = useState({}); // Local state used to set the post object so it can be manipulated
+    const [post, setPost] = useState({
+        title: "",
+        content: "",
+        imageLocation: "",
+        category: "",
+        publishedDate: ""
+
+    }); // Local state used to set the post object so it can be manipulated
     const history = useHistory(); // Use history to push the user to a different view
 
     // form field states

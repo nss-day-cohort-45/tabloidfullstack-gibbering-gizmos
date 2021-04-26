@@ -17,8 +17,11 @@ const CommentEdit = () => {
     const { updateComment, getCommentById, getAllComments, postId } = useContext(CommentContext)
 
     const { id } = useParams();
-    const [comment, setComment] = useState({});
     const history = useHistory();
+    const [comment, setComment] = useState({
+        subject: "",
+        content: ""
+    });
     
     // form field states
     const [subject, setSubject] = useState("");
@@ -31,7 +34,7 @@ const CommentEdit = () => {
 
     useEffect(() => {
         getCommentById(id).then(setComment)
-            .then(getAllComments)
+            // .then(getAllComments)
     }, []);
 
     // Once the comment has been set in state, update the form with previous post info
@@ -74,7 +77,7 @@ const CommentEdit = () => {
                         <Form>
                             <FormGroup>
                                 <Label for="subject">Subject</Label>
-                                <Input id="subject" onChange={(e) => setSubject(e.target.value)} value={subject} />
+                                <Input type="text" id="subject" onChange={(e) => setSubject(e.target.value)} value={subject} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="content">Content</Label>
