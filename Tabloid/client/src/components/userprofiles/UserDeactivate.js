@@ -1,19 +1,19 @@
-import React, { useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Label,
-  Input,
-  Button
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Label,
+    Input,
+    Button
 } from "reactstrap";
 import { UserProfileContext } from '../../providers/UserProfileProvider';
 import { useHistory, useParams } from "react-router-dom";
 
 const UserDeactivate = () => {
-    const  { id } = useParams();
-    const {getUserProfileById, deactivateUserById, getAllProfiles} = useContext(UserProfileContext)
+    const { id } = useParams();
+    const { getUserProfileById, deactivateUserById, getAllProfiles } = useContext(UserProfileContext)
     const [userProfile, setUserProfile] = useState({})
     const [userProfiles, setUserProfiles] = useState([])
     const history = useHistory();
@@ -23,28 +23,25 @@ const UserDeactivate = () => {
     }, [])
 
     const submit = () => {
-        
+
         const admins = userProfiles.filter(a => a.userTypeId === 1 && a.deactivated === false)
         // const activeAdmins = admins.filter(a => a.deactivated === false)
 
-        if(admins > 1)
-        {
+        if (admins.length > 1) {
             deactivateUserById(id).then(() => history.push(`/userprofiles`))
         }
-        else if(userProfile.userTypeId === 2)
-        {
+        else if (userProfile.userTypeId === 2) {
             deactivateUserById(id).then(() => history.push(`/userprofiles`))
         }
-        else
-        {
+        else {
             window.alert("You need to make someone else an admin before deactivating the only admin!")
         }
-        
+
     }
 
     const cancel = () => {
         history.push(`/userprofiles`)
-      };
+    };
 
     return (
         <div className="container pt-4">
