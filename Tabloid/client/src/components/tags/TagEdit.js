@@ -14,7 +14,9 @@ import { useHistory, useParams } from "react-router-dom";
 const TagEdit = () => {
   const {updateTag, getTagById} = useContext(TagContext)
   const { id } = useParams();
-  const [tag, setTag] = useState({})
+  const [tag, setTag] = useState({
+    name: ""
+  })
   const history = useHistory();
 
   //field state

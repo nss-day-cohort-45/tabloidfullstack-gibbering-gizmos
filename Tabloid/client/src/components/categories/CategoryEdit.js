@@ -15,7 +15,9 @@ const CategoryEdit = () => {
   
   const {updateCategory, getCategoryById} = useContext(CategoryContext)
   const  { id } = useParams();
-  const [category, setCategory] = useState({})
+  const [category, setCategory] = useState({
+    name: ""
+  })
   const history = useHistory();
 
   //field state
@@ -58,7 +60,7 @@ const CategoryEdit = () => {
             <Form>
               <FormGroup>
                 <Label for="name">Name</Label>
-                <Input id="name" onChange={(e) => setName(e.target.value)} value={name}/>
+                <Input type="text" id="name" onChange={(e) => setName(e.target.value)} value={name}/>
               </FormGroup>
             </Form>
             <Button color="info" onClick={submit}>
