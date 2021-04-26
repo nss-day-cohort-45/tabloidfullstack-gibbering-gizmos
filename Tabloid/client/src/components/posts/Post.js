@@ -1,13 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Card, CardBody, CardFooter, CardHeader } from "reactstrap";
+import {
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+    CardSubtitle,
+} from "reactstrap";
 import { Link, useHistory } from "react-router-dom";
 import { PostContext } from "../../providers/PostProvider";
 
-
-
 const Post = ({ post }) => {
     const { deletePost, getAllPosts } = useContext(PostContext);
-   
+
     // This is returning JSON
     const userProfile = sessionStorage.getItem("userProfile");
     // Parsing the JSON returned above into an object so we can use it
@@ -26,47 +32,52 @@ const Post = ({ post }) => {
         }
     };
 
-   
-
     if (currentUser.id === post.userProfileId) {
         return (
             <Card className="m-4">
-                <CardHeader>
-                    <h2 className="text-left px-2">
-                        {/* The route to post details is here */}
-                        <Link to={`/posts/${post.id}`}>
-                            <strong> {post.title}</strong>
-                        </Link>
-                    </h2>
-                </CardHeader>
                 <CardBody>
-                    <p>Author: {post.userProfile.displayName}</p>
-                    <p>Category: {post.category.name}</p>
+                    <Link className="postLink" to={`/posts/${post.id}`}>
+                        <CardTitle tag="h2">
+                            {/* The route to post details is here */}
+                            <strong> {post.title}</strong>
+                        </CardTitle>
+                        <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            Author: {post.userProfile.displayName}
+                        </CardSubtitle>
+                        <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            Category: {post.category.name}
+                        </CardSubtitle>
+                    </Link>
+                    <div style={{ float: "right" }}>
+                        <Button onClick={editPost}>Edit</Button>
+                        <Button
+                            color="danger"
+                            onClick={() => handleDeletePost(post.title)}
+                        >
+                            Delete
+                        </Button>
+                    </div>
                 </CardBody>
-                <CardFooter>
-                    <Button onClick={editPost}>Edit</Button>
-                    <Button color="danger" onClick={() => handleDeletePost(post.title)}>
-                        Delete
-                    </Button>
-                </CardFooter>
             </Card>
         );
     }
 
     return (
         <Card className="m-4">
-            <CardHeader>
-                <h2 className="text-left px-2">
-                    {/* The route to post details is here */}
-                    <Link to={`/posts/${post.id}`}>
+            <Link className="postLink" to={`/posts/${post.id}`}>
+                <CardBody>
+                    <CardTitle tag="h2">
+                        {/* The route to post details is here */}
                         <strong> {post.title}</strong>
-                    </Link>
-                </h2>
-            </CardHeader>
-            <CardBody>
-                <p>Author: {post.userProfile.displayName}</p>
-                <p>Category: {post.category.name}</p>
-            </CardBody>
+                    </CardTitle>
+                    <CardSubtitle tag="h6" className="mb-2 text-muted">
+                        Author: {post.userProfile.displayName}
+                    </CardSubtitle>
+                    <CardSubtitle tag="h6" className="mb-2 text-muted">
+                        Category: {post.category.name}
+                    </CardSubtitle>
+                </CardBody>
+            </Link>
         </Card>
     );
 };
